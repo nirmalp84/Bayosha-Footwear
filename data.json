@@ -1,0 +1,83 @@
+{
+  "products": {
+    "product1": {
+      "name": "Royal Men Sandals",
+      "category": "men",
+      "subcategory": "sandals",
+      "originalPrice": 1299,
+      "currentPrice": 999,
+      "discount": 23,
+      "rating": 4.6,
+      "reviewCount": 14,
+      "sizes": [6, 7, 8, 9, 10],
+      "inStock": true,
+      "image": "https://images.unsplash.com/photo-1519864609471-cc8e8b8f3143?auto=format&fit=facearea&w=400&h=300",
+      "description": "Premium men’s leather sandals, comfortable all-day wear.",
+      "createdAt": "2024-08-10T16:23:15.781Z"
+    },
+    "product2": {
+      "name": "Comfort Women Heels",
+      "category": "women",
+      "subcategory": "heels",
+      "originalPrice": 1699,
+      "currentPrice": 1399,
+      "discount": 18,
+      "rating": 4.4,
+      "reviewCount": 32,
+      "sizes": [6, 7, 8],
+      "inStock": true,
+      "image": "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=facearea&w=400&h=300",
+      "description": "Stylish women’s heels, perfect for parties and events.",
+      "createdAt": "2024-08-11T16:24:47.014Z"
+    },
+    "product3": {
+      "name": "Kids Sports Shoes",
+      "category": "children",
+      "subcategory": "sports",
+      "originalPrice": 1200,
+      "currentPrice": 899,
+      "discount": 25,
+      "rating": 4.7,
+      "reviewCount": 11,
+      "sizes": [6, 7, 8, 9],
+      "inStock": true,
+      "image": "https://images.unsplash.com/photo-1518717758536-85ae29035b6d?auto=format&fit=facearea&w=400&h=300",
+      "description": "Breathable, lightweight sports shoes for children.",
+      "createdAt": "2024-08-10T20:50:05.123Z"
+    }
+  },
+  "orders": {
+    "order1": {
+      "customerName": "Suresh Kumar",
+      "village": "Jhadoli",
+      "address": "Main Market, Jhadoli",
+      "phone": "9079569517",
+      "items": [
+        {
+          "productId": "product1",
+          "productName": "Royal Men Sandals",
+          "size": 8,
+          "quantity": 1,
+          "price": 999
+        }
+      ],
+      "total": 999,
+      "status": "pending",
+      "orderDate": "2024-08-12T10:10:00.000Z"
+    }
+  },
+  "categories": {
+    "men": {
+      "name": "Men's Footwear",
+      "subcategories": ["sandals", "slippers", "loafers", "shoes"]
+    },
+    "women": {
+      "name": "Women's Footwear",
+      "subcategories": ["heels", "flats", "sandals", "traditional"]
+    },
+    "children": {
+      "name": "Children's Footwear",
+      "subcategories": ["school", "sports", "casual", "baby"]
+    }
+  }
+}
