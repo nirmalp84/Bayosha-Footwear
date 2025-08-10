@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Bayosha Footwear Jhadoli</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #4a5568;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #4a5568;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        /* Progress Indicator */
+        .progress-container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 1rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .progress-steps {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .step-number {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            background: #cbd5e0;
+        }
+
+        .step.active .step-number {
+            background: #667eea;
+        }
+
+        .step.completed .step-number {
+            background: #48bb78;
+        }
+
+        .step-arrow {
+            color: #cbd5e0;
+            font-size: 1.2rem;
+        }
+
+        /* Main Content */
+        .checkout-container {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+
+        /* Form Section */
+        .checkout-form {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-section {
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #667eea;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #4a5568;
+        }
+
+        .required::after {
+            content: "*";
+            color: #e53e3e;
+            margin-left: 3px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        input.error, select.error, textarea.error {
+            border-color: #e53e3e;
+        }
+
+        .error-message {
+            color: #e53e3e;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+
+        textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        /* Delivery Options */
+        .delivery-options {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .delivery-option {
+            padding: 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .delivery-option:hover {
+            border-color: #667eea;
+        }
+
+        .delivery-option.selected {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .delivery-option input[type="radio"] {
+            display: none;
+        }
+
+        .delivery-title {
+            font-weight: bold;
+            color: #2d3748;
+        }
+
+        .delivery-info {
+            font-size: 0.875rem;
+            color: #718096;
+            margin-top: 0.25rem;
+        }
+
+        /* Order Summary */
+        .order-summary {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+
+        .summary-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .item-image {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .item-details {
+            flex: 1;
+        }
+
+        .item-name {
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 0.25rem;
+        }
+
+        .item-info {
+            font-size: 0.875rem;
+            color: #718096;
+        }
+
+        .item-price {
+            font-weight: bold;
+            color: #2d3748;
+        }
+
+        .order-totals {
+            padding: 1rem 0;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .total-row.final {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #2d3748;
+            padding-top: 0.5rem;
+            border-top: 2px solid #667eea;
+        }
+
+        /* Payment Method */
+        .payment-method {
+            background: rgba(102, 126, 234, 0.1);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            margin: 1rem 0;
+        }
+
+        .payment-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Checkbox */
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+            margin-top: 0.25rem;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-whatsapp {
+            background: #25d366;
+            color: white;
+            margin-top: 1rem;
+            width: 100%;
+        }
+
+        .btn-whatsapp:hover {
+            background: #22c55e;
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid transparent;
+            border-top: 2px solid currentColor;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Toast Messages */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            color: white;
+            font-weight: 500;
+            z-index: 1000;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .toast.success {
+            background: #48bb78;
+        }
+
+        .toast.error {
+            background: #e53e3e;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .progress-steps {
+                gap: 1rem;
+            }
+
+            .checkout-container {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                padding: 1rem 0;
+            }
+
+            .order-summary {
+                order: -1;
+                position: static;
+            }
+
+            .checkout-form, .order-summary {
+                padding: 1.5rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+
+            .container {
+                padding: 0 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .checkout-form, .order-summary {
+                padding: 1rem;
+            }
+
+            .section-title {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* Success Page Styles */
+        .success-container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 3rem 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 2rem auto;
+        }
+
+        .success-icon {
+            font-size: 4rem;
+            color: #48bb78;
+            margin-bottom: 1rem;
+        }
+
+        .success-title {
+            font-size: 2rem;
+            color: #2d3748;
+            margin-bottom: 1rem;
+        }
+
+        .order-details {
+            background: #f7fafc;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">Bayosha Footwear Jhadoli</a>
+                <nav>
+                    <ul class="nav-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="cart.html">Cart</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Progress Indicator -->
+    <div class="progress-container">
+        <div class="container">
+            <div class="progress-steps">
+                <div class="step completed">
+                    <div class="step-number">1</div>
+                    <span>Cart</span>
+                </div>
+                <div class="step-arrow">→</div>
+                <div class="step active">
+                    <div class="step-number">2</div>
+                    <span>Checkout</span>
+                </div>
+                <div class="step-arrow">→</div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <span>Confirmation</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="checkout-container" id="checkoutContainer">
+            <!-- Checkout Form -->
+            <div class="checkout-form">
+                <form id="checkoutForm">
+                    <!-- Personal Details -->
+                    <div class="form-section">
+                        <h3 class="section-title">Personal Details</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="fullName" class="required">Full Name</label>
+                                <input type="text" id="fullName" name="fullName" required>
+                                <div class="error-message" id="fullName-error">Please enter your full name</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="mobile" class="required">Mobile Number</label>
+                                <input type="tel" id="mobile" name="mobile" placeholder="10-digit mobile number" required>
+                                <div class="error-message" id="mobile-error">Please enter a valid 10-digit mobile number</div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email">Email (Optional)</label>
+                                <input type="email" id="email" name="email" placeholder="your@email.com">
+                                <div class="error-message" id="email-error">Please enter a valid email address</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="altPhone">Alternative Phone (Optional)</label>
+                                <input type="tel" id="altPhone" name="altPhone" placeholder="10-digit number">
+                                <div class="error-message" id="altPhone-error">Please enter a valid 10-digit number</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Address Details -->
+                    <div class="form-section">
+                        <h3 class="section-title">Address Details</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="village" class="required">Village</label>
+                                <select id="village" name="village" required>
+                                    <option value="">Select Village</option>
+                                    <option value="Jhadoli">Jhadoli</option>
+                                    <option value="Sivera">Sivera</option>
+                                    <option value="Malnoo">Malnoo</option>
+                                </select>
+                                <div class="error-message" id="village-error">Please select your village</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="houseNumber" class="required">House/Shop Number</label>
+                                <input type="text" id="houseNumber" name="houseNumber" required>
+                                <div class="error-message" id="houseNumber-error">Please enter house/shop number</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="landmark">Landmark (Optional)</label>
+                            <input type="text" id="landmark" name="landmark" placeholder="Near temple, school, etc.">
+                        </div>
+                        <div class="form-group">
+                            <label for="completeAddress" class="required">Complete Address</label>
+                            <textarea id="completeAddress" name="completeAddress" placeholder="Enter your complete address" required></textarea>
+                            <div class="error-message" id="completeAddress-error">Please enter your complete address</div>
+                        </div>
+                    </div>
+
+                    <!-- Delivery Options -->
+                    <div class="form-section">
+                        <h3 class="section-title">Delivery Options</h3>
+                        <div class="delivery-options">
+                            <label class="delivery-option selected">
+                                <input type="radio" name="delivery" value="same-day" checked>
+                                <div class="delivery-title">Same Day Delivery - FREE</div>
+                                <div class="delivery-info" id="deliveryTimeInfo">Select village to see delivery time</div>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="deliveryInstructions">Special Delivery Instructions (Optional)</label>
+                            <textarea id="deliveryInstructions" name="deliveryInstructions" placeholder="Any special instructions for delivery"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Payment Method -->
+                    <div class="form-section">
+                        <h3 class="section-title">Payment Method</h3>
+                        <div class="payment-method">
+                            <div class="payment-icon">💵</div>
+                            <strong>Cash on Delivery</strong>
+                            <div>Pay ₹<span id="paymentAmount">0</span> when delivered</div>
+                        </div>
+                    </div>
+
+                    <!-- Terms and Conditions -->
+                    <div class="form-section">
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="terms" name="terms" required>
+                            <label for="terms">
+                                I agree to the <a href="#" style="color: #667eea;">terms and conditions</a> and <a href="#" style="color: #667eea;">privacy policy</a>. I understand that orders are final and delivery charges may apply for remote locations.
+                            </label>
+                        </div>
+                        <div class="error-message" id="terms-error">Please accept the terms and conditions</div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" id="placeOrderBtn">
+                        Place Order
+                    </button>
+                </form>
+            </div>
+
+            <!-- Order Summary -->
+            <div class="order-summary">
+                <h3 class="summary-title">Order Summary</h3>
+                <div id="cartItems">
+                    <!-- Cart items will be loaded here -->
+                </div>
+                <div class="order-totals">
+                    <div class="total-row">
+                        <span>Subtotal:</span>
+                        <span>₹<span id="subtotal">0</span></span>
+                    </div>
+                    <div class="total-row">
+                        <span>Delivery:</span>
+                        <span style="color: #48bb78;">FREE</span>
+                    </div>
+                    <div class="total-row final">
+                        <span>Total:</span>
+                        <span>₹<span id="totalAmount">0</span></span>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-whatsapp" id="whatsappBtn">
+                    📱 WhatsApp Order Details
+                </button>
+            </div>
+        </div>
+
+        <!-- Success Page (Hidden by default) -->
+        <div class="success-container" id="successContainer" style="display: none;">
+            <div class="success-icon">✅</div>
+            <h2 class="success-title">Order Placed Successfully!</h2>
+            <p>Thank you for your order. We'll deliver your items soon.</p>
+            
+            <div class="order-details">
+                <h4>Order Details:</h4>
+                <div id="successOrderDetails"></div>
+            </div>
+
+            <button type="button" class="btn btn-primary" onclick="window.location.href='index.html'">
+                Continue Shopping
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Firebase configuration
+        const FIREBASE_URL = 'https://bayosa-footwear-default-rtdb.asia-southeast1.firebasedatabase.app/';
+        const WHATSAPP_NUMBER = '9079569517';
+
+        // Delivery time slots
+        const DELIVERY_TIMES = {
+            'Jhadoli': '10 AM - 8 PM',
+            'Sivera': '2 PM - 4 PM',
+            'Malnoo': '5 PM - 7 PM'
+        };
+
+        let cartData = [];
+        let orderData = {};
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCartData();
+            setupFormValidation();
+            setupAutoSave();
+            updateDeliveryTime();
+        });
+
+        // Load cart data
+        function loadCartData() {
+            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            if (cart.length === 0) {
+                window.location.href = 'cart.html';
+                return;
+            }
+
+            cartData = cart;
+            displayCartItems();
+            calculateTotals();
+        }
+
+        // Display cart items
+        function displayCartItems() {
+            const cartItemsContainer = document.getElementById('cartItems');
+            let html = '';
+
+            cartData.forEach((item, index) => {
+                html += `
+                    <div class="cart-item">
+                        <img src="${item.image || 'https://via.placeholder.com/60x60'}" alt="${item.name}" class="item-image">
+                        <div class="item-details">
+                            <div class="item-name">${item.name}</div>
+                            <div class="item-info">Size: ${item.size} | Qty: ${item.quantity}</div>
+                        </div>
+                        <div class="item-price">₹${(item.price * item.quantity).toFixed(2)}</div>
+                    </div>
+                `;
+            });
+
+            cartItemsContainer.innerHTML = html;
+        }
+
+        // Calculate totals
+        function calculateTotals() {
+            const subtotal = cartData.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const total = subtotal; // Free delivery
+
+            document.getElementById('subtotal').textContent = subtotal.toFixed(2);
+            document.getElementById('totalAmount').textContent = total.toFixed(2);
+            document.getElementById('paymentAmount').textContent = total.toFixed(2);
+        }
+
+        // Update delivery time based on village
+        function updateDeliveryTime() {
+            const villageSelect = document.getElementById('village');
+            const deliveryTimeInfo = document.getElementById('deliveryTimeInfo');
+
+            villageSelect.addEventListener('change', function() {
+                const village = this.value;
+                if (village && DELIVERY_TIMES[village]) {
+                    deliveryTimeInfo.textContent = `Delivery time: ${DELIVERY_TIMES[village]}`;
+                } else {
+                    deliveryTimeInfo.textContent = 'Select village to see delivery time';
+                }
+            });
+        }
+
+        // Form validation
+        function setupFormValidation() {
+            const form = document.getElementById('checkoutForm');
+            const inputs = form.querySelectorAll('input, select, textarea');
+
+            inputs.forEach(input => {
+                input.addEventListener('blur', () => validateField(input));
+                input.addEventListener('input', () => clearError(input));
+            });
+
+            form.addEventListener('submit', handleFormSubmit);
+        }
+
+        // Validate individual field
+        function validateField(field) {
+            const value = field.value.trim();
+            const name = field.name;
+            let isValid = true;
+            let errorMessage = '';
+
+            switch (name) {
+                case 'fullName':
+                    if (!value) {
+                        isValid = false;
+                        errorMessage = 'Please enter your full name';
+                    } else if (value.length < 2) {
+                        isValid = false;
+                        errorMessage = 'Name must be at least 2 characters';
+                    }
+                    break;
+
+                case 'mobile':
+                    const mobileRegex = /^[6-9]\d{9}$/;
+                    if (!value) {
+                        isValid = false;
+                        errorMessage = 'Please enter your mobile number';
+                    } else if (!mobileRegex.test(value)) {
+                        isValid = false;
+                        errorMessage = 'Please enter a valid 10-digit mobile number';
+                    }
+                    break;
+
+                case 'email':
+                    if (value) {
+                        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                        if (!emailRegex.test(value)) {
+                            isValid = false;
+                            errorMessage = 'Please enter a valid email address';
+                        }
+                    }
+                    break;
+
+                case 'altPhone':
+                    if (value) {
+                        const phoneRegex = /^[6-9]\d{9}$/;
+                        if (!phoneRegex.test(value)) {
+                            isValid = false;
+                            errorMessage = 'Please enter a valid 10-digit number';
+                        }
+                    }
+                    break;
+
+                case 'village':
+                    if (!value) {
+                        isValid = false;
+                        errorMessage = 'Please select your village';
+                    }
+                    break;
+
+                case 'houseNumber':
+                    if (!value) {
+                        isValid = false;
+                        errorMessage = 'Please enter house/shop number';
+                    }
+                    break;
+
+                case 'completeAddress':
+                    if (!value) {
+                        isValid = false;
+                        errorMessage = 'Please enter your complete address';
+                    } else if (value.length < 10) {
+                        isValid = false;
+                        errorMessage = 'Please provide a more detailed address';
+                    }
+                    break;
+
+                case 'terms':
+                    if (!field.checked) {
+                        isValid = false;
+                        errorMessage = 'Please accept the terms and conditions';
+                    }
+                    break;
+            }
+
+            if (!isValid) {
+                showFieldError(field, errorMessage);
+            } else {
+                clearError(field);
+            }
+
+            return isValid;
+        }
+
+        // Show field error
+        function showFieldError(field, message) {
+            field.classList.add('error');
+            const errorElement = document.getElementById(field.name + '-error');
+            if (errorElement) {
+                errorElement.textContent = message;
+                errorElement.style.display = 'block';
+            }
+        }
+
+        // Clear field error
+        function clearError(field) {
+            field.classList.remove('error');
+            const errorElement = document.getElementById(field.name + '-error');
+            if (errorElement) {
+                errorElement.style.display = 'none';
+            }
+        }
+
+        // Auto-save form data
+        function setupAutoSave() {
+            const form = document.getElementById('checkoutForm');
+            const inputs = form.querySelectorAll('input, select, textarea');
+
+            // Load saved data
+            const savedData = JSON.parse(localStorage.getItem('checkoutFormData') || '{}');
+            inputs.forEach(input => {
+                if (savedData[input.name] && input.type !== 'checkbox') {
+                    input.value = savedData[input.name];
+                } else if (input.type === 'checkbox' && savedData[input.name]) {
+                    input.checked = savedData[input.name];
+                }
+            });
+
+            // Update delivery time if village is pre-selected
+            const villageSelect = document.getElementById('village');
+            if (villageSelect.value) {
+                const deliveryTimeInfo = document.getElementById('deliveryTimeInfo');
+                deliveryTimeInfo.textContent = `Delivery time: ${DELIVERY_TIMES[villageSelect.value]}`;
+            }
+
+            // Save on input
+            inputs.forEach(input => {
+                input.addEventListener('input', () => {
+                    const formData = {};
+                    inputs.forEach(inp => {
+                        if (inp.type === 'checkbox') {
+                            formData[inp.name] = inp.checked;
+                        } else {
+                            formData[inp.name] = inp.value;
+                        }
+                    });
+                    localStorage.setItem('checkoutFormData', JSON.stringify(formData));
+                });
+            });
+        }
+
+        // Handle form submission
+        async function handleFormSubmit(e) {
+            e.preventDefault();
+            
+            const form = e.target;
+            const inputs = form.querySelectorAll('input, select, textarea');
+            let isFormValid = true;
+
+            // Validate all fields
+            inputs.forEach(input => {
+                if (!validateField(input)) {
+                    isFormValid = false;
+                }
+            });
+
+            if (!isFormValid) {
+                showToast('Please fix the errors before submitting', 'error');
+                return;
+            }
+
+            // Prepare order data
+            const formData = new FormData(form);
+            orderData = {
+                id: generateOrderId(),
+                timestamp: new Date().toISOString(),
+                status: 'pending',
+                customer: {
+                    fullName: formData.get('fullName'),
+                    mobile: formData.get('mobile'),
+                    email: formData.get('email') || '',
+                    altPhone: formData.get('altPhone') || ''
+                },
+                address: {
+                    village: formData.get('village'),
+                    houseNumber: formData.get('houseNumber'),
+                    landmark: formData.get('landmark') || '',
+                    completeAddress: formData.get('completeAddress')
+                },
+                delivery: {
+                    type: 'same-day',
+                    timeSlot: DELIVERY_TIMES[formData.get('village')] || '',
+                    instructions: formData.get('deliveryInstructions') || ''
+                },
+                payment: {
+                    method: 'cod',
+                    amount: parseFloat(document.getElementById('totalAmount').textContent)
+                },
+                items: cartData,
+                totals: {
+                    subtotal: parseFloat(document.getElementById('subtotal').textContent),
+                    delivery: 0,
+                    total: parseFloat(document.getElementById('totalAmount').textContent)
+                }
+            };
+
+            // Show loading state
+            const submitBtn = document.getElementById('placeOrderBtn');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<div class="spinner"></div> Processing...';
+            submitBtn.disabled = true;
+
+            try {
+                // Save to Firebase
+                await saveOrderToFirebase(orderData);
+                
+                // Send WhatsApp message
+                sendWhatsAppMessage(orderData);
+                
+                // Clear cart and form data
+                localStorage.removeItem('cart');
+                localStorage.removeItem('checkoutFormData');
+                
+                // Show success page
+                showSuccessPage();
+                
+            } catch (error) {
+                console.error('Order submission failed:', error);
+                showToast('Failed to place order. Please try again.', 'error');
+                
+                // Reset button
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }
+        }
+
+        // Generate unique order ID
+        function generateOrderId() {
+            const timestamp = Date.now().toString(36);
+            const randomStr = Math.random().toString(36).substr(2, 5);
+            return `BF${timestamp}${randomStr}`.toUpperCase();
+        }
+
+        // Save order to Firebase
+        async function saveOrderToFirebase(order) {
+            const response = await fetch(`${FIREBASE_URL}orders/${order.id}.json`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(order)
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to save order to database');
+            }
+
+            return response.json();
+        }
+
+        // Send WhatsApp message
+        function sendWhatsAppMessage(order) {
+            const message = formatWhatsAppMessage(order);
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+            
+            // Open WhatsApp in new tab
+            setTimeout(() => {
+                window.open(whatsappUrl, '_blank');
+            }, 2000);
+        }
+
+        // Format WhatsApp message
+        function formatWhatsAppMessage(order) {
+            let message = `🛍️ *New Order from Bayosha Footwear*\n\n`;
+            message += `📋 *Order ID:* ${order.id}\n`;
+            message += `📅 *Date:* ${new Date(order.timestamp).toLocaleDateString('en-IN')}\n\n`;
+            
+            message += `👤 *Customer Details:*\n`;
+            message += `Name: ${order.customer.fullName}\n`;
+            message += `Mobile: ${order.customer.mobile}\n`;
+            if (order.customer.email) {
+                message += `Email: ${order.customer.email}\n`;
+            }
+            if (order.customer.altPhone) {
+                message += `Alt Phone: ${order.customer.altPhone}\n`;
+            }
+            
+            message += `\n📍 *Delivery Address:*\n`;
+            message += `Village: ${order.address.village}\n`;
+            message += `House/Shop: ${order.address.houseNumber}\n`;
+            if (order.address.landmark) {
+                message += `Landmark: ${order.address.landmark}\n`;
+            }
+            message += `Address: ${order.address.completeAddress}\n`;
+            
+            message += `\n🕐 *Delivery Time:* ${order.delivery.timeSlot}\n`;
+            if (order.delivery.instructions) {
+                message += `Instructions: ${order.delivery.instructions}\n`;
+            }
+            
+            message += `\n🛒 *Order Items:*\n`;
+            order.items.forEach((item, index) => {
+                message += `${index + 1}. ${item.name}\n`;
+                message += `   Size: ${item.size}, Qty: ${item.quantity}\n`;
+                message += `   Price: ₹${(item.price * item.quantity).toFixed(2)}\n`;
+            });
+            
+            message += `\n💰 *Payment Details:*\n`;
+            message += `Subtotal: ₹${order.totals.subtotal.toFixed(2)}\n`;
+            message += `Delivery: FREE\n`;
+            message += `*Total: ₹${order.totals.total.toFixed(2)}*\n`;
+            message += `Payment: Cash on Delivery\n\n`;
+            
+            message += `✅ Order confirmed. Please prepare for delivery.\n`;
+            message += `📱 Contact customer: ${order.customer.mobile}`;
+            
+            return message;
+        }
+
+        // Show success page
+        function showSuccessPage() {
+            document.getElementById('checkoutContainer').style.display = 'none';
+            document.getElementById('successContainer').style.display = 'block';
+            
+            // Update progress indicator
+            const steps = document.querySelectorAll('.step');
+            steps[1].classList.remove('active');
+            steps[1].classList.add('completed');
+            steps[2].classList.add('active');
+            
+            // Show order details
+            const detailsHtml = `
+                <p><strong>Order ID:</strong> ${orderData.id}</p>
+                <p><strong>Total Amount:</strong> ₹${orderData.totals.total.toFixed(2)}</p>
+                <p><strong>Payment:</strong> Cash on Delivery</p>
+                <p><strong>Delivery:</strong> ${orderData.delivery.timeSlot}</p>
+                <p><strong>Delivery Address:</strong> ${orderData.address.completeAddress}, ${orderData.address.village}</p>
+                <p style="margin-top: 1rem; color: #48bb78;">
+                    <strong>Expected Delivery:</strong> Today between ${orderData.delivery.timeSlot}
+                </p>
+                <p style="margin-top: 0.5rem; color: #718096;">
+                    For any queries, contact us at ${WHATSAPP_NUMBER}
+                </p>
+            `;
+            document.getElementById('successOrderDetails').innerHTML = detailsHtml;
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+            
+            showToast('Order placed successfully! Check WhatsApp for confirmation.', 'success');
+        }
+
+        // WhatsApp button functionality
+        document.getElementById('whatsappBtn').addEventListener('click', function() {
+            const form = document.getElementById('checkoutForm');
+            const formData = new FormData(form);
+            
+            // Basic validation for WhatsApp
+            if (!formData.get('fullName') || !formData.get('mobile')) {
+                showToast('Please fill in your name and mobile number first', 'error');
+                return;
+            }
+            
+            const message = formatPreOrderMessage(formData);
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+            window.open(whatsappUrl, '_blank');
+        });
+
+        // Format pre-order WhatsApp message
+        function formatPreOrderMessage(formData) {
+            let message = `🛍️ *Order Inquiry - Bayosha Footwear*\n\n`;
+            message += `👤 *Customer:* ${formData.get('fullName')}\n`;
+            message += `📱 *Mobile:* ${formData.get('mobile')}\n`;
+            if (formData.get('village')) {
+                message += `📍 *Village:* ${formData.get('village')}\n`;
+            }
+            
+            message += `\n🛒 *Items:*\n`;
+            cartData.forEach((item, index) => {
+                message += `${index + 1}. ${item.name} (Size: ${item.size}, Qty: ${item.quantity})\n`;
+            });
+            
+            const total = parseFloat(document.getElementById('totalAmount').textContent);
+            message += `\n💰 *Total Amount:* ₹${total.toFixed(2)}\n`;
+            message += `\nI would like to place this order. Please confirm availability.`;
+            
+            return message;
+        }
+
+        // Toast notification system
+        function showToast(message, type = 'info') {
+            // Remove existing toasts
+            const existingToasts = document.querySelectorAll('.toast');
+            existingToasts.forEach(toast => toast.remove());
+            
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                if (toast.parentNode) {
+                    toast.remove();
+                }
+            }, 5000);
+        }
+
+        // Handle network errors
+        window.addEventListener('online', () => {
+            showToast('Connection restored', 'success');
+        });
+
+        window.addEventListener('offline', () => {
+            showToast('No internet connection. Please check your network.', 'error');
+        });
+
+        // Prevent form submission if cart is empty
+        function checkCartValidity() {
+            if (cartData.length === 0) {
+                showToast('Your cart is empty. Please add items before checkout.', 'error');
+                window.location.href = 'products.html';
+                return false;
+            }
+            return true;
+        }
+
+        // Security: Input sanitization
+        function sanitizeInput(input) {
+            const div = document.createElement('div');
+            div.textContent = input;
+            return div.innerHTML;
+        }
+
+        // Rate limiting for form submissions
+        let lastSubmissionTime = 0;
+        const SUBMISSION_COOLDOWN = 3000; // 3 seconds
+
+        function isSubmissionAllowed() {
+            const now = Date.now();
+            if (now - lastSubmissionTime < SUBMISSION_COOLDOWN) {
+                showToast('Please wait before submitting again', 'error');
+                return false;
+            }
+            lastSubmissionTime = now;
+            return true;
+        }
+
+        // Update form submit handler to include rate limiting
+        const originalHandleFormSubmit = handleFormSubmit;
+        handleFormSubmit = function(e) {
+            e.preventDefault();
+            
+            if (!checkCartValidity() || !isSubmissionAllowed()) {
+                return;
+            }
+            
+            return originalHandleFormSubmit.call(this, e);
+        };
+
+        // Handle page visibility for auto-save
+        document.addEventListener('visibilitychange', function() {
+            if (document.visibilityState === 'hidden') {
+                // Save form data when page becomes hidden
+                const form = document.getElementById('checkoutForm');
+                const inputs = form.querySelectorAll('input, select, textarea');
+                const formData = {};
+                
+                inputs.forEach(inp => {
+                    if (inp.type === 'checkbox') {
+                        formData[inp.name] = inp.checked;
+                    } else {
+                        formData[inp.name] = inp.value;
+                    }
+                });
+                
+                localStorage.setItem('checkoutFormData', JSON.stringify(formData));
+            }
+        });
+
+        // Initialize cart validation on page load
+        setTimeout(checkCartValidity, 500);
+    </script>
+</body>
+</html>

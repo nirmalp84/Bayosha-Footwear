@@ -1,0 +1,1615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - Bayosha Footwear</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        /* Header Styles */
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+        }
+
+        .nav-menu a:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .contact-buttons {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .contact-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .whatsapp-btn {
+            background: #25d366;
+            color: white;
+        }
+
+        .call-btn {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        .cart-badge {
+            background: #e74c3c;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 0.8rem;
+            position: absolute;
+            top: -8px;
+            right: -8px;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 100px;
+            padding: 2rem 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .breadcrumb a {
+            color: #007bff;
+            text-decoration: none;
+            margin-right: 0.5rem;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .breadcrumb-separator {
+            margin: 0 0.5rem;
+            color: #6c757d;
+        }
+
+        /* Product Detail Grid */
+        .product-detail {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            margin-bottom: 3rem;
+        }
+
+        /* Image Gallery */
+        .product-images {
+            position: relative;
+        }
+
+        .main-image-container {
+            position: relative;
+            margin-bottom: 1rem;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #f8f9fa;
+        }
+
+        .main-image {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+            cursor: zoom-in;
+        }
+
+        .main-image:hover {
+            transform: scale(1.05);
+        }
+
+        .zoom-icon {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(0,0,0,0.5);
+            color: white;
+            padding: 0.5rem;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .zoom-icon:hover {
+            background: rgba(0,0,0,0.7);
+        }
+
+        .thumbnail-gallery {
+            display: flex;
+            gap: 0.5rem;
+            overflow-x: auto;
+            padding: 0.5rem 0;
+        }
+
+        .thumbnail {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .thumbnail.active,
+        .thumbnail:hover {
+            opacity: 1;
+            border: 2px solid #007bff;
+        }
+
+        /* Product Info */
+        .product-info h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+        }
+
+        .product-brand {
+            color: #6c757d;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .price-section {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: linear-gradient(45deg, #f8f9fa, #e9ecef);
+            border-radius: 8px;
+        }
+
+        .current-price {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #28a745;
+        }
+
+        .original-price {
+            font-size: 1.2rem;
+            color: #6c757d;
+            text-decoration: line-through;
+            margin-left: 1rem;
+        }
+
+        .discount-badge {
+            background: #dc3545;
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            margin-left: 1rem;
+        }
+
+        .rating-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stars {
+            color: #ffc107;
+            font-size: 1.2rem;
+        }
+
+        .review-count {
+            color: #6c757d;
+        }
+
+        .product-description {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .features-list {
+            margin-bottom: 1.5rem;
+        }
+
+        .features-list h3 {
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+        }
+
+        .features-list ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .features-list li {
+            padding: 0.25rem 0;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .features-list li:before {
+            content: "✓";
+            color: #28a745;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        /* Size Selection */
+        .size-selection {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .size-selection h3 {
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+
+        .size-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .size-option {
+            position: relative;
+        }
+
+        .size-option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .size-option label {
+            display: block;
+            padding: 0.75rem;
+            text-align: center;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .size-option input[type="radio"]:checked + label {
+            border-color: #007bff;
+            background: #007bff;
+            color: white;
+        }
+
+        .size-option.disabled label {
+            background: #f8f9fa;
+            color: #6c757d;
+            cursor: not-allowed;
+        }
+
+        .size-guide-btn {
+            background: none;
+            border: 1px solid #007bff;
+            color: #007bff;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .size-guide-btn:hover {
+            background: #007bff;
+            color: white;
+        }
+
+        /* Quantity and Actions */
+        .quantity-actions {
+            margin-bottom: 2rem;
+        }
+
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .quantity-selector h3 {
+            color: #2c3e50;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .quantity-btn {
+            background: #f8f9fa;
+            border: none;
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .quantity-btn:hover {
+            background: #e9ecef;
+        }
+
+        .quantity-input {
+            border: none;
+            padding: 0.75rem 1rem;
+            text-align: center;
+            width: 60px;
+            font-size: 1.1rem;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: #007bff;
+            color: white;
+            flex: 1;
+        }
+
+        .btn-primary:hover {
+            background: #0056b3;
+        }
+
+        .btn-secondary {
+            background: #28a745;
+            color: white;
+            flex: 1;
+        }
+
+        .btn-secondary:hover {
+            background: #1e7e34;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #dc3545;
+            color: #dc3545;
+        }
+
+        .btn-outline:hover {
+            background: #dc3545;
+            color: white;
+        }
+
+        /* Product Tabs */
+        .product-tabs {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            margin-bottom: 3rem;
+        }
+
+        .tab-headers {
+            display: flex;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .tab-header {
+            padding: 1rem 2rem;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+            flex: 1;
+            text-align: center;
+        }
+
+        .tab-header.active {
+            border-bottom-color: #007bff;
+            color: #007bff;
+        }
+
+        .tab-content {
+            padding: 2rem;
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Delivery Info */
+        .delivery-info {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            margin-bottom: 3rem;
+        }
+
+        .delivery-schedule {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .delivery-slot {
+            padding: 1rem;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .delivery-time {
+            font-weight: bold;
+            color: #007bff;
+            margin-bottom: 0.5rem;
+        }
+
+        .delivery-area {
+            color: #2c3e50;
+        }
+
+        /* Related Products */
+        .related-products {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .related-products h2 {
+            margin-bottom: 2rem;
+            color: #2c3e50;
+            text-align: center;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            border: 1px solid #dee2e6;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .product-details {
+            padding: 1rem;
+        }
+
+        .product-name {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+        }
+
+        .product-price {
+            color: #28a745;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        /* Loading States */
+        .skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: #28a745;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            z-index: 10000;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        /* Modals */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-close {
+            float: right;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #6c757d;
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: #2c3e50;
+                flex-direction: column;
+                padding: 1rem;
+                gap: 0.5rem;
+            }
+
+            .nav-menu.show {
+                display: flex;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .contact-buttons {
+                display: none;
+            }
+
+            .product-detail {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding: 1rem;
+            }
+
+            .main-image {
+                height: 300px;
+            }
+
+            .action-buttons {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: white;
+                padding: 1rem;
+                box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+                z-index: 100;
+            }
+
+            .tab-headers {
+                overflow-x: auto;
+            }
+
+            .tab-header {
+                white-space: nowrap;
+                min-width: 120px;
+            }
+
+            .delivery-schedule {
+                grid-template-columns: 1fr;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+
+            .product-card {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            .header,
+            .action-buttons,
+            .related-products {
+                display: none !important;
+            }
+
+            .main-content {
+                margin-top: 0;
+            }
+
+            .product-detail {
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <a href="/" class="logo">
+                👟 Bayosha Footwear Jhadoli
+            </a>
+            
+            <nav class="nav-menu" id="navMenu">
+                <li><a href="/">Home</a></li>
+                <li><a href="/products.html">Products</a></li>
+                <li><a href="/about.html">About</a></li>
+                <li><a href="/contact.html">Contact</a></li>
+                <li><a href="/cart.html" style="position: relative;">
+                    Cart (<span id="cartCount">0</span>)
+                    <span class="cart-badge" id="cartBadge" style="display: none;">0</span>
+                </a></li>
+            </nav>
+
+            <div class="contact-buttons">
+                <a href="https://wa.me/919079569517" class="contact-btn whatsapp-btn" target="_blank">
+                    📱 WhatsApp
+                </a>
+                <a href="tel:+919079569517" class="contact-btn call-btn">
+                    📞 Call
+                </a>
+            </div>
+
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Breadcrumb -->
+            <nav class="breadcrumb" id="breadcrumb">
+                <a href="/">Home</a>
+                <span class="breadcrumb-separator">></span>
+                <a href="/products.html">Products</a>
+                <span class="breadcrumb-separator">></span>
+                <span id="categoryBreadcrumb">Loading...</span>
+                <span class="breadcrumb-separator">></span>
+                <span id="productBreadcrumb">Loading...</span>
+            </nav>
+
+            <!-- Product Detail -->
+            <div class="product-detail" id="productDetail">
+                <!-- Product Images -->
+                <div class="product-images">
+                    <div class="main-image-container">
+                        <img id="mainImage" class="main-image skeleton" src="" alt="Product Image">
+                        <div class="zoom-icon" onclick="openZoomModal()">🔍</div>
+                    </div>
+                    <div class="thumbnail-gallery" id="thumbnailGallery">
+                        <!-- Thumbnails will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Product Info -->
+                <div class="product-info">
+                    <h1 id="productName" class="skeleton" style="height: 2rem; margin-bottom: 0.5rem;"></h1>
+                    <div id="productBrand" class="product-brand skeleton" style="height: 1rem; width: 200px; margin-bottom: 1rem;"></div>
+                    
+                    <div class="price-section">
+                        <span id="currentPrice" class="current-price skeleton" style="height: 2rem; width: 150px; display: inline-block;"></span>
+                        <span id="originalPrice" class="original-price skeleton" style="height: 1.2rem; width: 100px; display: inline-block; margin-left: 1rem;"></span>
+                        <span id="discountBadge" class="discount-badge" style="display: none;"></span>
+                    </div>
+
+                    <div class="rating-section">
+                        <div class="stars" id="productRating">
+                            ⭐⭐⭐⭐⭐
+                        </div>
+                        <span class="review-count" id="reviewCount">(0 reviews)</span>
+                    </div>
+
+                    <div id="productDescription" class="product-description skeleton" style="height: 4rem; margin-bottom: 1.5rem;"></div>
+
+                    <div class="features-list" id="featuresList" style="display: none;">
+                        <h3>Key Features</h3>
+                        <ul id="featuresUL">
+                            <!-- Features will be loaded here -->
+                        </ul>
+                    </div>
+
+                    <!-- Size Selection -->
+                    <div class="size-selection">
+                        <h3>Select Size <button class="size-guide-btn" onclick="openSizeGuide()">Size Guide</button></h3>
+                        <div class="size-options" id="sizeOptions">
+                            <!-- Size options will be loaded here -->
+                        </div>
+                        <div id="sizeError" style="color: #dc3545; font-size: 0.9rem; display: none;">Please select a size</div>
+                    </div>
+
+                    <!-- Quantity and Actions -->
+                    <div class="quantity-actions">
+                        <div class="quantity-selector">
+                            <h3>Quantity:</h3>
+                            <div class="quantity-controls">
+                                <button class="quantity-btn" onclick="changeQuantity(-1)">-</button>
+                                <input type="number" id="quantity" class="quantity-input" value="1" min="1" max="10">
+                                <button class="quantity-btn" onclick="changeQuantity(1)">+</button>
+                            </div>
+                        </div>
+
+                        <div class="action-buttons">
+                            <button class="btn btn-primary" onclick="addToCart()">🛒 Add to Cart</button>
+                            <button class="btn btn-secondary" onclick="buyNow()">⚡ Buy Now</button>
+                            <button class="btn btn-outline" onclick="toggleWishlist()">❤️ Wishlist</button>
+                        </div>
+                    </div>
+
+                    <!-- Additional Actions -->
+                    <div style="margin-top: 1rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+                        <button class="btn" style="background: #25d366; color: white;" onclick="inquireWhatsApp()">
+                            📱 WhatsApp Inquiry
+                        </button>
+                        <button class="btn" style="background: #3b5998; color: white;" onclick="shareProduct('facebook')">
+                            📘 Share
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Tabs -->
+            <div class="product-tabs">
+                <div class="tab-headers">
+                    <div class="tab-header active" onclick="switchTab('description')">Description</div>
+                    <div class="tab-header" onclick="switchTab('sizeChart')">Size Chart</div>
+                    <div class="tab-header" onclick="switchTab('delivery')">Delivery Info</div>
+                    <div class="tab-header" onclick="switchTab('returns')">Returns</div>
+                </div>
+                
+                <div id="descriptionTab" class="tab-content active">
+                    <h3>Product Description</h3>
+                    <div id="detailedDescription">Loading detailed description...</div>
+                </div>
+                
+                <div id="sizeChartTab" class="tab-content">
+                    <h3>Size Chart</h3>
+                    <table style="width: 100%; border-collapse: collapse; margin-top: 1rem;">
+                        <thead>
+                            <tr style="background: #f8f9fa;">
+                                <th style="border: 1px solid #dee2e6; padding: 1rem;">Size</th>
+                                <th style="border: 1px solid #dee2e6; padding: 1rem;">Foot Length (cm)</th>
+                                <th style="border: 1px solid #dee2e6; padding: 1rem;">Recommended For</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td style="border: 1px solid #dee2e6; padding: 1rem;">6</td><td style="border: 1px solid #dee2e6; padding: 1rem;">24.0</td><td style="border: 1px solid #dee2e6; padding: 1rem;">Small feet</td></tr>
+                            <tr><td style="border: 1px solid #dee2e6; padding: 1rem;">7</td><td style="border: 1px solid #dee2e6; padding: 1rem;">25.0</td><td style="border: 1px solid #dee2e6; padding: 1rem;">Medium feet</td></tr>
+                            <tr><td style="border: 1px solid #dee2e6; padding: 1rem;">8</td><td style="border: 1px solid #dee2e6; padding: 1rem;">26.0</td><td style="border: 1px solid #dee2e6; padding: 1rem;">Regular size</td></tr>
+                            <tr><td style="border: 1px solid #dee2e6; padding: 1rem;">9</td><td style="border: 1px solid #dee2e6; padding: 1rem;">27.0</td><td style="border: 1px solid #dee2e6; padding: 1rem;">Large feet</td></tr>
+                            <tr><td style="border: 1px solid #dee2e6; padding: 1rem;">10</td><td style="border: 1px solid #dee2e6; padding: 1rem;">28.0</td><td style="border: 1px solid #dee2e6; padding: 1rem;">Extra large</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div id="deliveryTab" class="tab-content">
+                    <h3>Delivery Information</h3>
+                    <p>Free delivery to Jhadoli, Sivera, and Malnoo villages with same-day delivery available!</p>
+                    <div class="delivery-schedule">
+                        <div class="delivery-slot">
+                            <div class="delivery-time">Morning (9 AM - 12 PM)</div>
+                            <div class="delivery-area">Jhadoli Village</div>
+                        </div>
+                        <div class="delivery-slot">
+                            <div class="delivery-time">Afternoon (2 PM - 5 PM)</div>
+                            <div class="delivery-area">Sivera Village</div>
+                        </div>
+                        <div class="delivery-slot">
+                            <div class="delivery-time">Evening (6 PM - 9 PM)</div>
+                            <div class="delivery-area">Malnoo Village</div>
+                        </div>
+                    </div>
+                    <p style="margin-top: 1rem;"><strong>Cash on Delivery Available</strong> - Pay when you receive your order!</p>
+                </div>
+                
+                <div id="returnsTab" class="tab-content">
+                    <h3>Return Policy</h3>
+                    <ul style="padding-left: 1.5rem; line-height: 1.8;">
+                        <li>7-day return policy from date of delivery</li>
+                        <li>Items must be unused and in original condition</li>
+                        <li>Free return pickup within delivery areas</li>
+                        <li>Refund processed within 3-5 business days</li>
+                        <li>Exchange available for different sizes</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Delivery Info Section -->
+            <div class="delivery-info">
+                <h2>🚚 Delivery Information</h2>
+                <p>Same-day delivery available to our service areas!</p>
+                <div class="delivery-schedule">
+                    <div class="delivery-slot">
+                        <div class="delivery-time">Morning Delivery</div>
+                        <div class="delivery-area">Jhadoli - Shop Opening Hours</div>
+                        <small>Order before 8 AM for same day delivery</small>
+                    </div>
+                    <div class="delivery-slot">
+                        <div class="delivery-time">Afternoon Delivery</div>
+                        <div class="delivery-area">Sivera Village - 2 PM to 5 PM</div>
+                        <small>Order before 12 PM for same day delivery</small>
+                    </div>
+                    <div class="delivery-slot">
+                        <div class="delivery-time">Evening Delivery</div>
+                        <div class="delivery-area">Malnoo Village - 6 PM to 9 PM</div>
+                        <small>Order before 4 PM for same day delivery</small>
+                    </div>
+                </div>
+                <div style="margin-top: 1rem; padding: 1rem; background: #e8f5e8; border-radius: 8px;">
+                    <strong>💰 Cash on Delivery Available</strong> - No advance payment required!
+                </div>
+            </div>
+
+            <!-- Related Products -->
+            <div class="related-products">
+                <h2>You May Also Like</h2>
+                <div class="products-grid" id="relatedProducts">
+                    <!-- Related products will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Zoom Modal -->
+    <div id="zoomModal" class="modal">
+        <div class="modal-content" style="max-width: 90vw; max-height: 90vh; padding: 1rem;">
+            <span class="modal-close" onclick="closeZoomModal()">&times;</span>
+            <img id="zoomedImage" style="width: 100%; height: auto; border-radius: 8px;">
+        </div>
+    </div>
+
+    <!-- Size Guide Modal -->
+    <div id="sizeGuideModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeSizeGuide()">&times;</span>
+            <h3>Size Guide</h3>
+            <p>Measure your foot length and choose the appropriate size:</p>
+            <table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
+                <thead>
+                    <tr style="background: #f8f9fa;">
+                        <th style="border: 1px solid #dee2e6; padding: 0.75rem;">Size</th>
+                        <th style="border: 1px solid #dee2e6; padding: 0.75rem;">Length (cm)</th>
+                        <th style="border: 1px solid #dee2e6; padding: 0.75rem;">Width</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td style="border: 1px solid #dee2e6; padding: 0.75rem;">6</td><td style="border: 1px solid #dee2e6; padding: 0.75rem;">24.0</td><td style="border: 1px solid #dee2e6; padding: 0.75rem;">Narrow</td></tr>
+                    <tr><td style="border: 1px solid #dee2e6; padding: 0.75rem;">7</td><td style="border: 1px solid #dee2e6; padding: 0.75rem;">25.0</td><td style="border: 1px solid #dee2e6; padding: 0.75rem;">Regular</td></tr>
+                    <tr><td style="border: 1px solid #dee2e6; padding: 0.75rem;">8</td><td style="border: 1px solid #dee2e6; padding: 0.75rem;">26.0</td><td style="border: 1px solid #dee2e6; padding: 0.75rem;">Regular</td></tr>
+                    <tr><td style="border: 1px solid #dee2e6; padding: 0.75rem;">9</td><td style="border: 1px solid #dee2e6; padding: 0.75rem;">27.0</td><td style="border: 1px solid #dee2e6; padding: 0.75rem;">Wide</td></tr>
+                    <tr><td style="border: 1px solid #dee2e6; padding: 0.75rem;">10</td><td style="border: 1px solid #dee2e6; padding: 0.75rem;">28.0</td><td style="border: 1px solid #dee2e6; padding: 0.75rem;">Wide</td></tr>
+                </tbody>
+            </table>
+            <div style="background: #e8f5e8; padding: 1rem; border-radius: 8px; margin-top: 1rem;">
+                <strong>💡 Tip:</strong> If you're between sizes, we recommend choosing the larger size for better comfort.
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        <span id="toastMessage">Item added to cart!</span>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.22.2/firebase-app-compat.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.22.2/firebase-database-compat.min.js"></script>
+
+    <script>
+        // Firebase Configuration
+        const firebaseConfig = {
+            databaseURL: "https://bayosa-footwear-default-rtdb.asia-southeast1.firebasedatabase.app/"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        // Global Variables
+        let currentProduct = null;
+        let selectedSize = null;
+        let currentImageIndex = 0;
+        let productImages = [];
+
+        // Get product ID from URL
+        function getProductIdFromUrl() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('id') || 'demo-product-1';
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeMobileMenu();
+            updateCartCounter();
+            loadProduct();
+        });
+
+        // Mobile menu toggle
+        function initializeMobileMenu() {
+            const hamburger = document.getElementById('hamburger');
+            const navMenu = document.getElementById('navMenu');
+
+            hamburger.addEventListener('click', function() {
+                navMenu.classList.toggle('show');
+            });
+
+            // Close menu when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
+                    navMenu.classList.remove('show');
+                }
+            });
+        }
+
+        // Load product from Firebase
+        async function loadProduct() {
+            const productId = getProductIdFromUrl();
+            
+            try {
+                const snapshot = await database.ref(`products/${productId}`).once('value');
+                const product = snapshot.val();
+                
+                if (product) {
+                    currentProduct = { id: productId, ...product };
+                    displayProduct(currentProduct);
+                    loadRelatedProducts(product.category);
+                } else {
+                    showProductNotFound();
+                }
+            } catch (error) {
+                console.error('Error loading product:', error);
+                showError('Failed to load product details');
+            }
+        }
+
+        // Display product information
+        function displayProduct(product) {
+            // Update page title
+            document.title = `${product.name} - Bayosha Footwear`;
+            
+            // Update breadcrumb
+            document.getElementById('categoryBreadcrumb').textContent = product.category || 'Footwear';
+            document.getElementById('productBreadcrumb').textContent = product.name;
+            
+            // Product basic info
+            document.getElementById('productName').textContent = product.name;
+            document.getElementById('productName').classList.remove('skeleton');
+            
+            document.getElementById('productBrand').textContent = product.brand || 'Bayosha Footwear';
+            document.getElementById('productBrand').classList.remove('skeleton');
+            
+            // Price information
+            const currentPriceEl = document.getElementById('currentPrice');
+            const originalPriceEl = document.getElementById('originalPrice');
+            const discountBadgeEl = document.getElementById('discountBadge');
+            
+            currentPriceEl.textContent = `₹${product.price}`;
+            currentPriceEl.classList.remove('skeleton');
+            
+            if (product.originalPrice && product.originalPrice > product.price) {
+                originalPriceEl.textContent = `₹${product.originalPrice}`;
+                originalPriceEl.classList.remove('skeleton');
+                
+                const discount = Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100);
+                discountBadgeEl.textContent = `${discount}% OFF`;
+                discountBadgeEl.style.display = 'inline';
+            } else {
+                originalPriceEl.style.display = 'none';
+            }
+            
+            // Description
+            const descEl = document.getElementById('productDescription');
+            descEl.textContent = product.description || 'High-quality footwear designed for comfort and style.';
+            descEl.classList.remove('skeleton');
+            
+            // Features
+            if (product.features && product.features.length > 0) {
+                const featuresEl = document.getElementById('featuresList');
+                const featuresUL = document.getElementById('featuresUL');
+                featuresUL.innerHTML = '';
+                
+                product.features.forEach(feature => {
+                    const li = document.createElement('li');
+                    li.textContent = feature;
+                    featuresUL.appendChild(li);
+                });
+                
+                featuresEl.style.display = 'block';
+            }
+            
+            // Detailed description for tab
+            document.getElementById('detailedDescription').innerHTML = `
+                <p>${product.description || 'High-quality footwear designed for comfort and style.'}</p>
+                <h4 style="margin-top: 1rem; margin-bottom: 0.5rem;">Material & Care</h4>
+                <ul>
+                    <li>Upper: ${product.material || 'Premium synthetic leather'}</li>
+                    <li>Sole: ${product.sole || 'Durable rubber sole'}</li>
+                    <li>Care: Clean with soft cloth, avoid direct sunlight</li>
+                    <li>Storage: Keep in dry, ventilated area</li>
+                </ul>
+                <h4 style="margin-top: 1rem; margin-bottom: 0.5rem;">Product Details</h4>
+                <ul>
+                    <li>SKU: ${product.sku || productId.toUpperCase()}</li>
+                    <li>Brand: ${product.brand || 'Bayosha Footwear'}</li>
+                    <li>Category: ${product.category || 'Footwear'}</li>
+                    <li>Color: ${product.color || 'As shown in image'}</li>
+                </ul>
+            `;
+            
+            // Load images
+            loadProductImages(product);
+            
+            // Load sizes
+            loadSizeOptions(product.sizes || {});
+            
+            // Update rating
+            updateRating(product.rating || 4.5, product.reviewCount || 12);
+        }
+
+        // Load product images
+        function loadProductImages(product) {
+            productImages = [];
+            
+            // Main image
+            if (product.image) {
+                productImages.push(product.image);
+            }
+            
+            // Additional images
+            if (product.images && Array.isArray(product.images)) {
+                productImages.push(...product.images);
+            }
+            
+            // If no images, use placeholder
+            if (productImages.length === 0) {
+                productImages = [
+                    'https://via.placeholder.com/500x500/f8f9fa/6c757d?text=No+Image',
+                    'https://via.placeholder.com/500x500/e9ecef/6c757d?text=Image+2',
+                    'https://via.placeholder.com/500x500/dee2e6/6c757d?text=Image+3'
+                ];
+            }
+            
+            // Set main image
+            const mainImage = document.getElementById('mainImage');
+            mainImage.src = productImages[0];
+            mainImage.alt = product.name;
+            mainImage.classList.remove('skeleton');
+            
+            // Create thumbnails
+            const thumbnailGallery = document.getElementById('thumbnailGallery');
+            thumbnailGallery.innerHTML = '';
+            
+            productImages.forEach((imageUrl, index) => {
+                const thumbnail = document.createElement('img');
+                thumbnail.src = imageUrl;
+                thumbnail.alt = `${product.name} - Image ${index + 1}`;
+                thumbnail.className = `thumbnail ${index === 0 ? 'active' : ''}`;
+                thumbnail.onclick = () => changeMainImage(index);
+                thumbnailGallery.appendChild(thumbnail);
+            });
+        }
+
+        // Change main image
+        function changeMainImage(index) {
+            if (index >= 0 && index < productImages.length) {
+                currentImageIndex = index;
+                document.getElementById('mainImage').src = productImages[index];
+                
+                // Update thumbnail active state
+                const thumbnails = document.querySelectorAll('.thumbnail');
+                thumbnails.forEach((thumb, i) => {
+                    thumb.classList.toggle('active', i === index);
+                });
+            }
+        }
+
+        // Load size options
+        function loadSizeOptions(sizes) {
+            const sizeOptionsEl = document.getElementById('sizeOptions');
+            sizeOptionsEl.innerHTML = '';
+            
+            const availableSizes = ['6', '7', '8', '9', '10', '11'];
+            
+            availableSizes.forEach(size => {
+                const isAvailable = sizes[size] === true;
+                
+                const sizeOption = document.createElement('div');
+                sizeOption.className = `size-option ${!isAvailable ? 'disabled' : ''}`;
+                
+                sizeOption.innerHTML = `
+                    <input type="radio" id="size_${size}" name="size" value="${size}" ${!isAvailable ? 'disabled' : ''}>
+                    <label for="size_${size}">${size}</label>
+                `;
+                
+                if (isAvailable) {
+                    sizeOption.querySelector('input').addEventListener('change', function() {
+                        selectedSize = size;
+                        document.getElementById('sizeError').style.display = 'none';
+                    });
+                }
+                
+                sizeOptionsEl.appendChild(sizeOption);
+            });
+        }
+
+        // Update rating display
+        function updateRating(rating, reviewCount) {
+            const starsEl = document.getElementById('productRating');
+            const reviewCountEl = document.getElementById('reviewCount');
+            
+            let starsHTML = '';
+            for (let i = 1; i <= 5; i++) {
+                if (i <= rating) {
+                    starsHTML += '⭐';
+                } else {
+                    starsHTML += '☆';
+                }
+            }
+            
+            starsEl.innerHTML = starsHTML;
+            reviewCountEl.textContent = `(${reviewCount} reviews)`;
+        }
+
+        // Quantity controls
+        function changeQuantity(change) {
+            const quantityInput = document.getElementById('quantity');
+            let quantity = parseInt(quantityInput.value) + change;
+            
+            if (quantity < 1) quantity = 1;
+            if (quantity > 10) quantity = 10;
+            
+            quantityInput.value = quantity;
+        }
+
+        // Add to cart functionality
+        function addToCart() {
+            if (!selectedSize) {
+                document.getElementById('sizeError').style.display = 'block';
+                document.getElementById('sizeError').scrollIntoView({ behavior: 'smooth' });
+                return;
+            }
+            
+            const quantity = parseInt(document.getElementById('quantity').value);
+            
+            const cartItem = {
+                id: currentProduct.id,
+                name: currentProduct.name,
+                price: currentProduct.price,
+                image: currentProduct.image || productImages[0],
+                size: selectedSize,
+                quantity: quantity,
+                timestamp: Date.now()
+            };
+            
+            // Get existing cart
+            let cart = JSON.parse(localStorage.getItem('bayosha_cart') || '[]');
+            
+            // Check if item already exists
+            const existingIndex = cart.findIndex(item => 
+                item.id === cartItem.id && item.size === cartItem.size
+            );
+            
+            if (existingIndex !== -1) {
+                cart[existingIndex].quantity += quantity;
+            } else {
+                cart.push(cartItem);
+            }
+            
+            // Save cart
+            localStorage.setItem('bayosha_cart', JSON.stringify(cart));
+            
+            // Update counter and show toast
+            updateCartCounter();
+            showToast('Item added to cart successfully!');
+        }
+
+        // Buy now functionality
+        function buyNow() {
+            if (!selectedSize) {
+                document.getElementById('sizeError').style.display = 'block';
+                return;
+            }
+            
+            addToCart();
+            
+            // Redirect to checkout or WhatsApp
+            const message = `Hi! I want to buy ${currentProduct.name} (Size: ${selectedSize}, Qty: ${document.getElementById('quantity').value}) for ₹${currentProduct.price}`;
+            window.open(`https://wa.me/919079569517?text=${encodeURIComponent(message)}`, '_blank');
+        }
+
+        // WhatsApp inquiry
+        function inquireWhatsApp() {
+            const message = `Hi! I'm interested in ${currentProduct.name}. Can you provide more details?`;
+            window.open(`https://wa.me/919079569517?text=${encodeURIComponent(message)}`, '_blank');
+        }
+
+        // Share product
+        function shareProduct(platform) {
+            const url = window.location.href;
+            const title = `Check out ${currentProduct.name} at Bayosha Footwear`;
+            
+            switch(platform) {
+                case 'facebook':
+                    window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank');
+                    break;
+                case 'twitter':
+                    window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}`, '_blank');
+                    break;
+                case 'whatsapp':
+                    window.open(`https://wa.me/?text=${encodeURIComponent(title + ' ' + url)}`, '_blank');
+                    break;
+            }
+        }
+
+        // Wishlist functionality (localStorage)
+        function toggleWishlist() {
+            let wishlist = JSON.parse(localStorage.getItem('bayosha_wishlist') || '[]');
+            const productId = currentProduct.id;
+            const index = wishlist.indexOf(productId);
+            
+            if (index === -1) {
+                wishlist.push(productId);
+                showToast('Added to wishlist!');
+            } else {
+                wishlist.splice(index, 1);
+                showToast('Removed from wishlist!');
+            }
+            
+            localStorage.setItem('bayosha_wishlist', JSON.stringify(wishlist));
+        }
+
+        // Tab switching
+        function switchTab(tabName) {
+            // Remove active class from all headers and contents
+            document.querySelectorAll('.tab-header').forEach(header => {
+                header.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+            document.getElementById(tabName + 'Tab').classList.add('active');
+        }
+
+        // Modal functions
+        function openZoomModal() {
+            document.getElementById('zoomedImage').src = productImages[currentImageIndex];
+            document.getElementById('zoomModal').classList.add('show');
+        }
+
+        function closeZoomModal() {
+            document.getElementById('zoomModal').classList.remove('show');
+        }
+
+        function openSizeGuide() {
+            document.getElementById('sizeGuideModal').classList.add('show');
+        }
+
+        function closeSizeGuide() {
+            document.getElementById('sizeGuideModal').classList.remove('show');
+        }
+
+        // Load related products
+        async function loadRelatedProducts(category) {
+            try {
+                const snapshot = await database.ref('products').once('value');
+                const allProducts = snapshot.val();
+                
+                if (allProducts) {
+                    const relatedProducts = Object.entries(allProducts)
+                        .filter(([id, product]) => 
+                            id !== currentProduct.id && 
+                            product.category === category
+                        )
+                        .slice(0, 4)
+                        .map(([id, product]) => ({ id, ...product }));
+                    
+                    displayRelatedProducts(relatedProducts);
+                }
+            } catch (error) {
+                console.error('Error loading related products:', error);
+            }
+        }
+
+        // Display related products
+        function displayRelatedProducts(products) {
+            const container = document.getElementById('relatedProducts');
+            container.innerHTML = '';
+            
+            products.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                productCard.innerHTML = `
+                    <img src="${product.image || 'https://via.placeholder.com/200x200/f8f9fa/6c757d?text=No+Image'}" 
+                         alt="${product.name}" class="product-image">
+                    <div class="product-details">
+                        <div class="product-name">${product.name}</div>
+                        <div class="product-price">₹${product.price}</div>
+                        <button class="btn btn-primary" style="width: 100%; margin-top: 0.5rem; padding: 0.5rem;" 
+                                onclick="viewProduct('${product.id}')">
+                            View Details
+                        </button>
+                    </div>
+                `;
+                container.appendChild(productCard);
+            });
+        }
+
+        // View product
+        function viewProduct(productId) {
+            window.location.href = `product-detail.html?id=${productId}`;
+        }
+
+        // Update cart counter
+        function updateCartCounter() {
+            const cart = JSON.parse(localStorage.getItem('bayosha_cart') || '[]');
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            
+            document.getElementById('cartCount').textContent = totalItems;
+            
+            const badge = document.getElementById('cartBadge');
+            if (totalItems > 0) {
+                badge.textContent = totalItems;
+                badge.style.display = 'block';
+            } else {
+                badge.style.display = 'none';
+            }
+        }
+
+        // Show toast notification
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+            
+            toastMessage.textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Show product not found
+        function showProductNotFound() {
+            document.getElementById('productDetail').innerHTML = `
+                <div style="grid-column: 1 / -1; text-align: center; padding: 3rem;">
+                    <h2>Product Not Found</h2>
+                    <p>The requested product could not be found.</p>
+                    <a href="/products.html" class="btn btn-primary">Back to Products</a>
+                </div>
+            `;
+        }
+
+        // Show error message
+        function showError(message) {
+            document.getElementById('productDetail').innerHTML = `
+                <div style="grid-column: 1 / -1; text-align: center; padding: 3rem;">
+                    <h2>Error</h2>
+                    <p>${message}</p>
+                    <button class="btn btn-primary" onclick="loadProduct()">Try Again</button>
+                </div>
+            `;
+        }
+
+        // Close modals on outside click
+        window.onclick = function(event) {
+            const zoomModal = document.getElementById('zoomModal');
+            const sizeGuideModal = document.getElementById('sizeGuideModal');
+            
+            if (event.target === zoomModal) {
+                closeZoomModal();
+            }
+            if (event.target === sizeGuideModal) {
+                closeSizeGuide();
+            }
+        };
+
+        // Touch gestures for image gallery (basic implementation)
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.getElementById('mainImage').addEventListener('touchstart', function(e) {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.getElementById('mainImage').addEventListener('touchend', function(e) {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 50) {
+                // Swipe left - next image
+                const nextIndex = (currentImageIndex + 1) % productImages.length;
+                changeMainImage(nextIndex);
+            }
+            if (touchEndX > touchStartX + 50) {
+                // Swipe right - previous image
+                const prevIndex = currentImageIndex === 0 ? productImages.length - 1 : currentImageIndex - 1;
+                changeMainImage(prevIndex);
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeZoomModal();
+                closeSizeGuide();
+            }
+            if (e.key === 'ArrowLeft' && productImages.length > 1) {
+                const prevIndex = currentImageIndex === 0 ? productImages.length - 1 : currentImageIndex - 1;
+                changeMainImage(prevIndex);
+            }
+            if (e.key === 'ArrowRight' && productImages.length > 1) {
+                const nextIndex = (currentImageIndex + 1) % productImages.length;
+                changeMainImage(nextIndex);
+            }
+        });
+
+        // Smooth scroll for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

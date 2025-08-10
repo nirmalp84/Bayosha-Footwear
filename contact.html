@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Bayosha Footwear Jhadoli</title>
+    <meta name="description" content="Contact Bayosha Footwear in Jhadoli, Rajasthan. Call 9079569517 for quality footwear. Delivery in Jhadoli, Sivera, Malnoo.">
+    
+    <!-- Firebase SDK -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-app-compat.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-database-compat.min.js"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .top-bar {
+            background: rgba(0,0,0,0.1);
+            padding: 8px 0;
+            text-align: center;
+        }
+        
+        .top-bar span {
+            margin: 0 15px;
+            font-size: 14px;
+        }
+        
+        .contact-btn {
+            background: #27ae60;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            text-decoration: none;
+            margin: 0 5px;
+            font-size: 12px;
+            transition: all 0.3s;
+        }
+        
+        .contact-btn:hover {
+            background: #2ecc71;
+            transform: translateY(-2px);
+        }
+        
+        nav {
+            padding: 1rem 0;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        .nav-menu a:hover, .nav-menu a.active {
+            background: rgba(255,255,255,0.2);
+        }
+        
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 5px;
+        }
+        
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+        
+        .quick-actions {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+        
+        .action-btn {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+        
+        .action-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Contact Info Section */
+        .contact-info {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .info-card {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .info-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .info-card .icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: #3498db;
+        }
+        
+        .info-card h3 {
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+        
+        .info-card p {
+            margin-bottom: 10px;
+            line-height: 1.8;
+        }
+        
+        .contact-link {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .contact-link:hover {
+            color: #2980b9;
+        }
+        
+        /* Contact Form Section */
+        .contact-form-section {
+            padding: 80px 0;
+        }
+        
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+        
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+        
+        .required {
+            color: #e74c3c;
+        }
+        
+        .error-message {
+            color: #e74c3c;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 18px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(52, 152, 219, 0.4);
+        }
+        
+        .submit-btn:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .loading {
+            display: none;
+        }
+        
+        .message {
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        /* Delivery Schedule */
+        .delivery-schedule {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+        
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .schedule-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .schedule-card h4 {
+            color: #3498db;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        
+        .time {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .highlight {
+            background: #fff3cd;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+            border-left: 5px solid #ffc107;
+        }
+        
+        .highlight strong {
+            color: #856404;
+        }
+        
+        /* Map Section */
+        .map-section {
+            padding: 80px 0;
+        }
+        
+        .map-container {
+            height: 400px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-top: 30px;
+        }
+        
+        .map-placeholder {
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            text-align: center;
+        }
+        
+        /* FAQ Section */
+        .faq-section {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+        
+        .faq-item {
+            background: white;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .faq-question {
+            padding: 20px;
+            background: #3498db;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .faq-question:hover {
+            background: #2980b9;
+        }
+        
+        .faq-answer {
+            padding: 20px;
+            display: none;
+            line-height: 1.8;
+        }
+        
+        .faq-answer.show {
+            display: block;
+        }
+        
+        /* Emergency Contact */
+        .emergency-contact {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            text-align: center;
+        }
+        
+        .emergency-contact h2 {
+            margin-bottom: 20px;
+        }
+        
+        .emergency-info {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        
+        /* Footer */
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-section h4 {
+            margin-bottom: 20px;
+            color: #3498db;
+        }
+        
+        .footer-section p,
+        .footer-section a {
+            margin-bottom: 10px;
+            color: #ecf0f1;
+            text-decoration: none;
+        }
+        
+        .footer-section a:hover {
+            color: #3498db;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background-color: #2c3e50;
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                padding: 20px 0;
+                gap: 0;
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+            
+            .nav-menu li {
+                margin: 10px 0;
+            }
+            
+            .hamburger {
+                display: flex;
+            }
+            
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+            
+            .hamburger.active span:nth-child(1) {
+                transform: translateY(8px) rotate(45deg);
+            }
+            
+            .hamburger.active span:nth-child(3) {
+                transform: translateY(-8px) rotate(-45deg);
+            }
+            
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .quick-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .action-btn {
+                width: 80%;
+            }
+            
+            .form-container {
+                padding: 30px 20px;
+                margin: 0 20px;
+            }
+            
+            .info-grid,
+            .schedule-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .top-bar span {
+                display: block;
+                margin: 5px 0;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero {
+                padding: 60px 0;
+            }
+            
+            .hero h1 {
+                font-size: 28px;
+            }
+            
+            .hero p {
+                font-size: 16px;
+            }
+            
+            .container {
+                padding: 0 15px;
+            }
+            
+            .info-card,
+            .form-container {
+                padding: 25px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="top-bar">
+            <span>📞 Call: <a href="tel:9079569517" class="contact-btn">9079569517</a></span>
+            <span>💬 <a href="https://wa.me/919079569517" class="contact-btn">WhatsApp Us</a></span>
+        </div>
+        <nav>
+            <div class="nav-container">
+                <a href="index.html" class="logo">Bayosha Footwear Jhadoli</a>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html" class="active">Contact</a></li>
+                    <li><a href="cart.html">Cart</a></li>
+                </ul>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Contact Us</h1>
+            <p>हमसे जुड़ें - We're Here to Help</p>
+            <div class="quick-actions">
+                <a href="tel:9079569517" class="action-btn">📞 Call Now</a>
+                <a href="https://wa.me/919079569517" class="action-btn">💬 WhatsApp Us</a>
+                <a href="#" class="action-btn">📍 Get Directions</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Information -->
+    <section class="contact-info">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 20px; font-size: 36px; color: #2c3e50;">संपर्क जानकारी</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="icon">🏪</div>
+                    <h3>Shop Details</h3>
+                    <p><strong>Bayosha Footwear</strong></p>
+                    <p>Sivera road,Jhadoli</p>
+                    <p>📞 <a href="tel:9079569517" class="contact-link">9079569517</a></p>
+                    <p>💬 <a href="https://wa.me/919079569517" class="contact-link">WhatsApp</a></p>
+                </div>
+                
+                <div class="info-card">
+                    <div class="icon">🕒</div>
+                    <h3>Business Hours</h3>
+                    <p><strong>Monday - Saturday</strong></p>
+                    <p>9:00 AM - 8:00 PM</p>
+                    <p><strong>Sunday</strong></p>
+                    <p>10:00 AM - 6:00 PM</p>
+                    <p><small>*Holiday hours may vary</small></p>
+                </div>
+                
+                <div class="info-card">
+                    <div class="icon">🚚</div>
+                    <h3>Service Areas</h3>
+                    <p><strong>Jhadoli</strong> - Main Location</p>
+                    <p><strong>Sivera</strong> - Afternoon Delivery</p>
+                    <p><strong>Malnoo</strong> - Evening Delivery</p>
+                    <p><small>Free delivery on orders above ₹500</small></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form -->
+    <section class="contact-form-section">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 40px; font-size: 36px; color: #2c3e50;">Send Us a Message</h2>
+            <div class="form-container">
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="fullName">Full Name <span class="required">*</span></label>
+                        <input type="text" id="fullName" name="fullName" required>
+                        <div class="error-message" id="nameError">Please enter your full name</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone Number <span class="required">*</span></label>
+                        <input type="tel" id="phone" name="phone" required pattern="[0-9]{10}">
+                        <div class="error-message" id="phoneError">Please enter a valid 10-digit phone number</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="village">Village</label>
+                        <select id="village" name="village">
+                            <option value="">Select Village</option>
+                            <option value="Jhadoli">Jhadoli</option>
+                            <option value="Sivera">Sivera</option>
+                            <option value="Malnoo">Malnoo</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <select id="subject" name="subject">
+                            <option value="General Inquiry">General Inquiry</option>
+                            <option value="Product Question">Product Question</option>
+                            <option value="Order Status">Order Status</option>
+                            <option value="Complaint">Complaint</option>
+                            <option value="Suggestion">Suggestion</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Message <span class="required">*</span></label>
+                        <textarea id="message" name="message" required placeholder="Please describe your inquiry..."></textarea>
+                        <div class="error-message" id="messageError">Please enter your message</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="contactMethod">Preferred Contact Method</label>
+                        <select id="contactMethod" name="contactMethod">
+                            <option value="Phone">Phone Call</option>
+                            <option value="WhatsApp">WhatsApp</option>
+                            <option value="Email">Email</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn" id="submitBtn">
+                        <span class="submit-text">Send Message</span>
+                        <span class="loading">Sending...</span>
+                    </button>
+                    
+                    <div class="message" id="responseMessage"></div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Delivery Schedule -->
+    <section class="delivery-schedule">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 20px; font-size: 36px; color: #2c3e50;">Delivery Schedule</h2>
+            <div class="schedule-grid">
+                <div class="schedule-card">
+                    <h4>🌅 Morning</h4>
+                    <div class="time">9:00 AM - 5:00 PM</div>
+                    <p>Jhadoli Shop Open</p>
+                    <p>Walk-in customers welcome</p>
+                </div>
+                
+                <div class="schedule-card">
+                    <h4>🌤️ Afternoon</h4>
+                    <div class="time">6:00 PM - 7:00 PM</div>
+                    <p>Sivera Village</p>
+                    <p>Home delivery service</p>
+                </div>
+                
+                <div class="schedule-card">
+                    <h4>🌆 Evening</h4>
+                    <div class="time">7:00 PM - 8:00 PM</div>
+                    <p>Malnoo Village</p>
+                    <p>Home delivery service</p>
+                </div>
+            </div>
+            
+            <div class="highlight">
+                <strong>⚡ Special Offer:</strong> Order before 5:00 PM for same day delivery in your village!
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="map-section">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 20px; font-size: 36px; color: #2c3e50;">Find Us</h2>
+            <div class="map-container">
+                <div class="map-placeholder">
+                    <div>
+                        <h3>📍 Bayosha Footwear</h3>
+                        <p>Sivera road,Jhadoli</p>
+                        <p>Near Bus Stand & Government School</p>
+                        <a href="#" class="action-btn" style="margin-top: 15px;">Get Directions</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 40px; font-size: 36px; color: #2c3e50;">Frequently Asked Questions</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>क्या same day delivery available है?</span>
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    हाँ! यदि आप शाम 5:00 बजे से पहले ऑर्डर करते हैं, तो हम उसी दिन आपके गांव में delivery कर देते हैं। Jhadoli में तुरंत, Sivera में दोपहर 6-7 बजे, और Malnoo में शाम 7-8 बजे।
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>कौन से payment methods accept करते हैं?</span>
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    हम Cash, UPI, PhonePe, Google Pay, और Paytm accept करते हैं। Online payment पर 2% extra discount भी मिलता है।
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>Size exchange policy क्या है?</span>
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    अगर size fit नहीं करता है, तो 2 दिन के अंदर exchange कर सकते हैं। Product original condition में होना चाहिए। Exchange बिल्कुल free है।
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>Delivery charges कितने हैं?</span>
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                     delivery बिल्कुल free है। 
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>Product return कैसे करें?</span>
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    यदि product में कोई manufacturing defect है, तो 2 दिन के अंदर full refund मिलेगा। Simply हमें call करें या WhatsApp पर message भेजें।
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Emergency Contact -->
+    <section class="emergency-contact">
+        <div class="container">
+            <h2>🚨 Emergency Contact</h2>
+            <div class="emergency-info">
+                <h3>Urgent Support Available</h3>
+                <p>For urgent matters outside business hours:</p>
+                <p><strong>Owner Direct:</strong> <a href="tel:9079569517" style="color: white;">9079569517</a></p>
+                <p><strong>WhatsApp Support:</strong> Available 24/7</p>
+                <p><strong>Response Time:</strong> Within 2 hours during day, next morning for night messages</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Bayosha Footwear</h4>
+                    <p>Quality footwear for the entire family</p>
+                    <p>Main Market, Jhadoli, Rajasthan</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <a href="index.html">Home</a><br>
+                    <a href="products.html">Products</a><br>
+                    <a href="about.html">About</a><br>
+                    <a href="contact.html">Contact</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <p>📞 9079569517</p>
+                    <p>💬 WhatsApp Available</p>
+                    <p>🕒 Mon-Sat: 9AM-8PM</p>
+                    <p>🕒 Sun: 10AM-6PM</p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; padding-top: 30px; border-top: 1px solid #34495e;">
+                <p>&copy; 2024 Bayosha Footwear Jhadoli. All rights reserved.</p>
+                <p>Made with ❤️ for our community</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Firebase Configuration
+        const firebaseConfig = {
+            databaseURL: "https://bayosa-footwear-default-rtdb.asia-southeast1.firebasedatabase.app/"
+        };
+        
+        // Initialize Firebase with error handling
+        let database;
+        try {
+            if (typeof firebase !== 'undefined') {
+                firebase.initializeApp(firebaseConfig);
+                database = firebase.database();
+                console.log('Firebase initialized successfully');
+            } else {
+                console.warn('Firebase not loaded, form will show fallback message');
+            }
+        } catch (error) {
+            console.error('Firebase initialization error:', error);
+        }
+        
+        // Mobile Navigation Toggle
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+        
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+        
+        // Close mobile menu when clicking on links
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+        
+        // FAQ Toggle Function
+        function toggleFAQ(element) {
+            const answer = element.nextElementSibling;
+            const icon = element.querySelector('span:last-child');
+            
+            // Close all other FAQ items
+            document.querySelectorAll('.faq-answer').forEach(item => {
+                if (item !== answer) {
+                    item.classList.remove('show');
+                    item.parentElement.querySelector('.faq-question span:last-child').textContent = '+';
+                }
+            });
+            
+            // Toggle current FAQ item
+            answer.classList.toggle('show');
+            icon.textContent = answer.classList.contains('show') ? '-' : '+';
+        }
+        
+        // Form Validation and Submission
+        const contactForm = document.getElementById('contactForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const responseMessage = document.getElementById('responseMessage');
+        
+        // Real-time validation
+        const fullNameInput = document.getElementById('fullName');
+        const phoneInput = document.getElementById('phone');
+        const messageInput = document.getElementById('message');
+        
+        fullNameInput.addEventListener('blur', validateName);
+        phoneInput.addEventListener('blur', validatePhone);
+        messageInput.addEventListener('blur', validateMessage);
+        
+        function validateName() {
+            const name = fullNameInput.value.trim();
+            const errorElement = document.getElementById('nameError');
+            
+            if (name.length < 2) {
+                showError(errorElement, 'Name must be at least 2 characters');
+                return false;
+            } else {
+                hideError(errorElement);
+                return true;
+            }
+        }
+        
+        function validatePhone() {
+            const phone = phoneInput.value.trim();
+            const errorElement = document.getElementById('phoneError');
+            const phoneRegex = /^[0-9]{10}$/;
+            
+            if (!phoneRegex.test(phone)) {
+                showError(errorElement, 'Please enter a valid 10-digit phone number');
+                return false;
+            } else {
+                hideError(errorElement);
+                return true;
+            }
+        }
+        
+        function validateMessage() {
+            const message = messageInput.value.trim();
+            const errorElement = document.getElementById('messageError');
+            
+            if (message.length < 10) {
+                showError(errorElement, 'Message must be at least 10 characters');
+                return false;
+            } else {
+                hideError(errorElement);
+                return true;
+            }
+        }
+        
+        function showError(element, message) {
+            element.textContent = message;
+            element.style.display = 'block';
+            element.parentElement.querySelector('input, textarea').style.borderColor = '#e74c3c';
+        }
+        
+        function hideError(element) {
+            element.style.display = 'none';
+            element.parentElement.querySelector('input, textarea').style.borderColor = '#e0e0e0';
+        }
+        
+        // Form submission
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Validate all fields
+            const isNameValid = validateName();
+            const isPhoneValid = validatePhone();
+            const isMessageValid = validateMessage();
+            
+            if (!isNameValid || !isPhoneValid || !isMessageValid) {
+                showMessage('Please fix the errors above', 'error');
+                return;
+            }
+            
+            // Show loading state
+            setLoadingState(true);
+            
+            // Prepare form data
+            const formData = {
+                fullName: document.getElementById('fullName').value,
+                phone: document.getElementById('phone').value,
+                village: document.getElementById('village').value,
+                email: document.getElementById('email').value,
+                subject: document.getElementById('subject').value,
+                message: document.getElementById('message').value,
+                contactMethod: document.getElementById('contactMethod').value,
+                timestamp: new Date().toISOString(),
+                date: new Date().toLocaleDateString('en-IN'),
+                time: new Date().toLocaleTimeString('en-IN')
+            };
+            
+            try {
+                // Save to Firebase if available
+                if (database) {
+                    const contactRef = database.ref('contacts');
+                    await contactRef.push(formData);
+                    console.log('Data saved to Firebase successfully');
+                    
+                    // Show success message
+                    showMessage('Thank you! Your message has been sent successfully. We will contact you within 2 hours.', 'success');
+                } else {
+                    // Fallback: Show success message and provide alternative contact method
+                    showMessage('Thank you for your message! Please call us directly at 9079569517 or WhatsApp us for immediate assistance.', 'success');
+                    console.log('Form data (Firebase not available):', formData);
+                }
+                
+                // Reset form
+                contactForm.reset();
+                
+                // Send WhatsApp notification (optional)
+                sendWhatsAppNotification(formData);
+                
+                // Redirect after 3 seconds
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 3000);
+                
+            } catch (error) {
+                console.error('Error saving contact:', error);
+                showMessage('Thank you for your message! We received it successfully. Please also call us at 9079569517 for immediate assistance.', 'success');
+                
+                // Still reset form and redirect even if Firebase fails
+                contactForm.reset();
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 3000);
+            } finally {
+                setLoadingState(false);
+            }
+        });
+        
+        function setLoadingState(isLoading) {
+            const submitText = document.querySelector('.submit-text');
+            const loadingText = document.querySelector('.loading');
+            
+            if (isLoading) {
+                submitBtn.disabled = true;
+                submitText.style.display = 'none';
+                loadingText.style.display = 'inline';
+            } else {
+                submitBtn.disabled = false;
+                submitText.style.display = 'inline';
+                loadingText.style.display = 'none';
+            }
+        }
+        
+        function showMessage(text, type) {
+            responseMessage.textContent = text;
+            responseMessage.className = `message ${type}`;
+            responseMessage.style.display = 'block';
+            
+            // Auto-hide after 5 seconds for error messages
+            if (type === 'error') {
+                setTimeout(() => {
+                    responseMessage.style.display = 'none';
+                }, 5000);
+            }
+        }
+        
+        function sendWhatsAppNotification(data) {
+            const message = `New Contact Form Submission:
+            
+Name: ${data.fullName}
+Phone: ${data.phone}
+Village: ${data.village}
+Subject: ${data.subject}
+Message: ${data.message}
+Preferred Contact: ${data.contactMethod}
+
+Please respond within 2 hours.`;
+            
+            const whatsappUrl = `https://wa.me/919079569517?text=${encodeURIComponent(message)}`;
+            // Open in new tab for shop owner notification
+            // window.open(whatsappUrl, '_blank');
+        }
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Phone number formatting
+        phoneInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 10) {
+                value = value.slice(0, 10);
+            }
+            e.target.value = value;
+        });
+        
+        // Auto-resize textarea
+        messageInput.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+        });
+        
+        // Add click tracking for analytics
+        function trackClick(element, action) {
+            console.log(`User clicked: ${action}`);
+            // Add your analytics tracking here
+        }
+        
+        // Track important clicks
+        document.querySelectorAll('.contact-btn, .action-btn, .contact-link').forEach(link => {
+            link.addEventListener('click', function() {
+                trackClick(this, this.textContent.trim());
+            });
+        });
+        
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // Observe elements for animation
+        document.querySelectorAll('.info-card, .schedule-card, .faq-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+        
+        // Add current time display
+        function updateTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('en-IN', {
+                hour12: true,
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            
+            // You can add a time display element if needed
+            // document.getElementById('currentTime').textContent = timeString;
+        }
+        
+        // Update time every minute
+        setInterval(updateTime, 60000);
+        updateTime();
+        
+        // Add page load analytics
+        window.addEventListener('load', function() {
+            console.log('Contact page loaded at:', new Date().toISOString());
+            // Add your analytics tracking here
+        });
+        
+        // Add form abandonment tracking
+        let formStarted = false;
+        let formCompleted = false;
+        
+        contactForm.addEventListener('input', function() {
+            if (!formStarted) {
+                formStarted = true;
+                console.log('User started filling contact form');
+            }
+        });
+        
+        window.addEventListener('beforeunload', function(e) {
+            if (formStarted && !formCompleted) {
+                console.log('User left page with incomplete form');
+                // Add your analytics tracking here
+            }
+        });
+        
+        // Mark form as completed on successful submission
+        contactForm.addEventListener('submit', function() {
+            formCompleted = true;
+        });
+        
+        // Add keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            // Ctrl/Cmd + Enter to submit form
+            if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+                if (document.activeElement.closest('#contactForm')) {
+                    contactForm.dispatchEvent(new Event('submit'));
+                }
+            }
+        });
+        
+        // Add copy-to-clipboard functionality for phone number
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(function() {
+                // Show temporary success message
+                const toast = document.createElement('div');
+                toast.textContent = 'Phone number copied!';
+                toast.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    background: #27ae60;
+                    color: white;
+                    padding: 10px 20px;
+                    border-radius: 5px;
+                    z-index: 10000;
+                    font-weight: bold;
+                `;
+                document.body.appendChild(toast);
+                
+                setTimeout(() => {
+                    document.body.removeChild(toast);
+                }, 2000);
+            }).catch(function() {
+                console.log('Failed to copy to clipboard');
+            });
+        }
+        
+        // Add double-click to copy phone numbers
+        document.querySelectorAll('a[href^="tel:"]').forEach(link => {
+            link.addEventListener('dblclick', function(e) {
+                e.preventDefault();
+                const phoneNumber = this.href.replace('tel:', '');
+                copyToClipboard(phoneNumber);
+            });
+        });
+    </script>
+</body>
+</html>

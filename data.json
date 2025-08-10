@@ -1,0 +1,44 @@
+{
+  "products": {
+    "product1": {
+      "name": "Product Name",
+      "category": "mens",
+      "subcategory": "sandals",
+      "price": 999,
+      "images": ["url1", "url2"],
+      "sizes": {
+        "6": true,
+        "7": true,
+        "8": false
+      },
+      "inStock": true,
+      "createdAt": 1691510400000
+    }
+  },
+  "orders": {
+    "order1": {
+      "customerName": "Customer Name",
+      "village": "Jhadoli",
+      "address": "Full Address",
+      "phone": "9079569517",
+      "items": [
+        {
+          "productId": "productId",
+          "productName": "Product Name",
+          "size": "7",
+          "quantity": 1,
+          "price": 999
+        }
+      ],
+      "total": 999,
+      "status": "pending",
+      "orderDate": 1691510400000
+    }
+  },
+  "categories": {
+    "mens": {
+      "name": "Men's Footwear",
+      "subcategories": ["sandals", "slippers", "loafers", "shoes"]
+    }
+  }
+}

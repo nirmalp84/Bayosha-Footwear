@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Bayosha Footwear Jhadoli | Quality Footwear for Three Villages</title>
+    <meta name="description" content="Learn about Bayosha Footwear, owned by Satish Prajapat. Quality footwear with personal service for Jhadoli, Sivera, and Malnoo villages. Direct delivery by owner.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            margin: 0;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .nav-menu a:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+
+        .contact-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .contact-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .whatsapp-btn {
+            background-color: #25D366;
+            color: white;
+        }
+
+        .call-btn {
+            background-color: #ff6b35;
+            color: white;
+        }
+
+        .contact-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 3px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            transition: 0.3s;
+        }
+
+        /* Main Content */
+        main {
+            margin-top: 80px;
+        }
+
+        /* Hero Section */
+        .hero-about {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%234a90e2" width="1200" height="600"/><text x="600" y="300" text-anchor="middle" fill="white" font-size="48" font-family="Arial">Shop Image</text></svg>');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 8rem 2rem 4rem;
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+        }
+
+        .hero-content p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #2c3e50;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(45deg, #ff6b35, #f7931e);
+            margin: 1rem auto;
+        }
+
+        /* Owner Information */
+        .owner-info {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            align-items: center;
+            margin-bottom: 4rem;
+        }
+
+        .owner-photo {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #4a90e2, #50c878);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin: 0 auto;
+        }
+
+        .owner-details h3 {
+            font-size: 2rem;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        .owner-details .designation {
+            color: #ff6b35;
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .owner-details p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        /* Shop Information */
+        .shop-info {
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 4rem;
+        }
+
+        .shop-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .detail-item {
+            padding: 1.5rem;
+            background: linear-gradient(45deg, #f8f9fa, #e9ecef);
+            border-radius: 10px;
+            border-left: 4px solid #ff6b35;
+        }
+
+        .detail-item h4 {
+            color: #2c3e50;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .detail-item p {
+            color: #666;
+            font-size: 1rem;
+        }
+
+        /* Services Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .service-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #ff6b35, #f7931e);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            margin: 0 auto 1rem;
+        }
+
+        .service-card h3 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        /* Personal Touch Section */
+        .personal-touch {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 4rem 2rem;
+            border-radius: 20px;
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .personal-message {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .personal-message h3 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .personal-message ul {
+            list-style: none;
+            font-size: 1.2rem;
+            line-height: 2;
+        }
+
+        .personal-message ul li {
+            margin-bottom: 1rem;
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .personal-message ul li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #50c878;
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+
+        /* Service Areas */
+        .service-areas {
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 4rem;
+        }
+
+        .delivery-schedule {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .schedule-item {
+            padding: 1.5rem;
+            background: linear-gradient(45deg, #e3f2fd, #bbdefb);
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .schedule-item h4 {
+            color: #1976d2;
+            margin-bottom: 1rem;
+        }
+
+        .schedule-item p {
+            color: #333;
+            font-weight: 500;
+        }
+
+        /* Values Section */
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .value-item {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .value-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .value-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .value-item h3 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        /* Contact Section */
+        .contact-owner {
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            color: white;
+            padding: 4rem 2rem;
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .contact-item {
+            background: rgba(255,255,255,0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .contact-item h4 {
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .direct-contact {
+            margin-top: 2rem;
+        }
+
+        .contact-buttons-main {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-btn-main {
+            padding: 1rem 2rem;
+            border: 2px solid white;
+            border-radius: 30px;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+            background: transparent;
+        }
+
+        .contact-btn-main:hover {
+            background: white;
+            color: #ff6b35;
+            transform: translateY(-2px);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: #2c3e50;
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .contact-buttons {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .hero-content p {
+                font-size: 1.1rem;
+            }
+
+            .owner-info {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .owner-photo {
+                width: 200px;
+                height: 200px;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-buttons-main {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .contact-btn-main {
+                width: 200px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-container {
+                padding: 0 10px;
+            }
+
+            .logo {
+                font-size: 1.4rem;
+            }
+
+            .section {
+                padding: 2rem 1rem;
+            }
+
+            .hero-about {
+                padding: 6rem 1rem 3rem;
+            }
+
+            .shop-info {
+                padding: 2rem 1rem;
+            }
+
+            .personal-touch {
+                padding: 3rem 1rem;
+            }
+
+            .contact-owner {
+                padding: 3rem 1rem;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        /* Scroll to top button */
+        .scroll-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #ff6b35;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: none;
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+
+        .scroll-top:hover {
+            background: #e55a2b;
+            transform: translateY(-2px);
+        }
+
+        .scroll-top.visible {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="logo">Bayosha Footwear Jhadoli</a>
+            <nav>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="cart.html">Cart</a></li>
+                </ul>
+                <div class="contact-buttons">
+                    <a href="https://wa.me/919079569517" class="contact-btn whatsapp-btn" target="_blank">WhatsApp</a>
+                    <a href="tel:+919079569517" class="contact-btn call-btn">Call</a>
+                </div>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero About Section -->
+        <section class="hero-about">
+            <div class="hero-content">
+                <h1>About Bayosha Footwear</h1>
+                <p>Quality Footwear for Three Villages<br>
+                आपके भरोसे का व्यापार, आपकी सेवा में समर्पित</p>
+            </div>
+        </section>
+
+        <!-- Owner Information Section -->
+        <section class="section">
+            <h2 class="section-title">मिलिए हमारे मालिक से</h2>
+            <div class="owner-info animate-fade-in">
+                <div class="owner-photo">
+                    <div>Owner Photo<br>Satish Prajapat</div>
+                </div>
+                <div class="owner-details">
+                    <h3>सतीश प्रजापत</h3>
+                    <div class="designation">Owner & Founder</div>
+                    <p><strong>मैं सतीश प्रजापत, Bayosha Footwear का मालिक हूं।</strong> मेरा footwear business में कई साल का अनुभव है। मैं व्यक्तिगत रूप से हर customer के साथ जुड़ता हूं और quality products प्रदान करने के लिए प्रतिबद्ध हूं।</p>
+                    <p>मेरा मानना है कि अच्छे जूते न केवल आपके पैरों को सुरक्षा देते हैं, बल्कि आपके व्यक्तित्व को भी निखारते हैं। इसलिए मैं हमेशा best quality और latest fashion के footwear का चुनाव करता हूं।</p>
+                    <p><em>"ग्राहक की संतुष्टि ही हमारी सफलता का मापदंड है।"</em></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Shop Information -->
+        <section class="section">
+            <h2 class="section-title">Shop Details</h2>
+            <div class="shop-info animate-fade-in">
+                <div class="shop-details">
+                    <div class="detail-item">
+                        <h4>दुकान का नाम</h4>
+                        <p>Bayosha Footwear</p>
+                    </div>
+                    <div class="detail-item">
+                        <h4>पता</h4>
+                        <p>Sivera Road, Jhadoli</p>
+                    </div>
+                    <div class="detail-item">
+                        <h4>मालिक</h4>
+                        <p>सतीश प्रजापत</p>
+                    </div>
+                    <div class="detail-item">
+                        <h4>संपर्क</h4>
+                        <p>9079569517</p>
+                    </div>
+                    <div class="detail-item">
+                        <h4>स्थापना वर्ष</h4>
+                        <p>2020</p>
+                    </div>
+                    <div class="detail-item">
+                        <h4>विशेषता</h4>
+                        <p>Quality Footwear Collection</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Services -->
+        <section class="section">
+            <h2 class="section-title">हमारी सेवाएं</h2>
+            <div class="services-grid animate-fade-in">
+                <div class="service-card">
+                    <div class="service-icon">👟</div>
+                    <h3>Quality Footwear Collection</h3>
+                    <p>Latest fashion और best quality के जूते, चप्पल, और सैंडल का wide collection</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🤝</div>
+                    <h3>Personal Service by Owner</h3>
+                    <p>मालिक द्वारा व्यक्तिगत सेवा, हर customer के साथ direct communication</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🚚</div>
+                    <h3>Same Day Delivery</h3>
+                    <p>तीनों गांवों में same day delivery service, मालिक खुद delivery करते हैं</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">💰</div>
+                    <h3>Cash on Delivery</h3>
+                    <p>घर पर delivery के समय payment की सुविधा, no advance payment required</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">📏</div>
+                    <h3>Size Guidance</h3>
+                    <p>Perfect fitting के लिए size guidance और fitting advice</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🛠️</div>
+                    <h3>After Sales Support</h3>
+                    <p>Purchase के बाद भी support, exchange और return की सुविधा</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Personal Touch Section -->
+        <section class="section">
+            <div class="personal-touch animate-fade-in">
+                <div class="personal-message">
+                    <h3>व्यक्तिगत स्पर्श</h3>
+                    <ul>
+                        <li>मैं खुद सभी deliveries handle करता हूं</li>
+                        <li>हर customer के साथ personal relationship बनाता हूं</li>
+                        <li>Quality में कोई compromise नहीं</li>
+                        <li>आपकी जरूरत के अनुसार product suggestion देता हूं</li>
+                        <li>24/7 customer support available</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Service Areas -->
+        <section class="section">
+            <h2 class="section-title">Service Areas</h2>
+            <div class="service-areas animate-fade-in">
+                <p style="text-align: center; font-size: 1.2rem; margin-bottom: 2rem;">
+                    <strong>सतीश जी खुद आपके घर तक delivery करते हैं</strong>
+                </p>
+                <div class="delivery-schedule">
+                    <div class="schedule-item">
+                        <h4>सुबह (Morning)</h4>
+                        <p>Shop operations in Jhadoli<br>Customer service & new arrivals</p>
+                    </div>
+                    <div class="schedule-item">
+                        <h4>दोपहर (Afternoon)</h4>
+                        <p>Sivera village delivery<br>Personal door-to-door service</p>
+                    </div>
+                    <div class="schedule-item">
+                        <h4>शाम (Evening)</h4>
+                        <p>Malnoo village delivery<br>Customer satisfaction follow-up</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Choose Us -->
+        <section class="section">
+            <h2 class="section-title">Why Choose Us</h2>
+            <div class="services-grid animate-fade-in">
+                <div class="service-card">
+                    <h3>Owner-Operated Business</h3>
+                    <p>Direct communication with owner, no middleman, personal attention to every customer</p>
+                </div>
+                <div class="service-card">
+                    <h3>Local Understanding</h3>
+                    <p>Deep understanding of local needs, preferences, और community की requirements</p>
+                </div>
+                <div class="service-card">
+                    <h3>Trust & Reliability</h3>
+                    <p>Community में established trust, reliable service, और honest business practices</p>
+                </div>
+                <div class="service-card">
+                    <h3>Flexible Service</h3>
+                    <p>Customer की convenience के अनुसार flexible delivery times और service options</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Business Values -->
+        <section class="section">
+            <h2 class="section-title">हमारे मूल्य</h2>
+            <div class="values-grid animate-fade-in">
+                <div class="value-item">
+                    <div class="value-icon">⭐</div>
+                    <h3>ईमानदारी (Honesty)</h3>
+                    <p>Transparent pricing और honest business practices</p>
+                </div>
+                <div class="value-item">
+                    <div class="value-icon">🏆</div>
+                    <h3>गुणवत्ता (Quality)</h3>
+                    <p>Best quality products और superior craftsmanship</p>
+                </div>
+                <div class="value-item">
+                    <div class="value-icon">❤️</div>
+                    <h3>व्यक्तिगत सेवा</h3>
+                    <p>Personal touch और individual attention</p>
+                </div>
+                <div class="value-item">
+                    <div class="value-icon">😊</div>
+                    <h3>ग्राहक संतुष्टि</h3>
+                    <p>Customer satisfaction को priority देना</p>
+                </div>
+                <div class="value-item">
+                    <div class="value-icon">🤝</div>
+                    <h3>विश्वसनीयता</h3>
+                    <p>Trust और reliability में commitment</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Owner Directly -->
+        <section class="section">
+            <div class="contact-owner animate-fade-in">
+                <h2>सीधे मालिक से संपर्क करें</h2>
+                <p style="font-size: 1.2rem; margin-bottom: 2rem;">
+                    आप सीधे मुझसे बात कर सकते हैं - कोई भी सवाल, order, या complaint के लिए
+                </p>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <h4>Phone & WhatsApp</h4>
+                        <p>9079569517</p>
+                    </div>
+                    <div class="contact-item">
+                        <h4>Shop Address</h4>
+                        <p>Sivera Road, Jhadoli</p>
+                    </div>
+                    <div class="contact-item">
+                        <h4>Service Areas</h4>
+                        <p>Jhadoli, Sivera, Malnoo</p>
+                    </div>
+                    <div class="contact-item">
+                        <h4>Business Hours</h4>
+                        <p>9 AM - 8 PM (Mon-Sat)<br>10 AM - 6 PM (Sunday)</p>
+                    </div>
+                </div>
+                <div class="direct-contact">
+                    <h3>Direct Contact with सतीश प्रजापत</h3>
+                    <div class="contact-buttons-main">
+                        <a href="tel:+919079569517" class="contact-btn-main">📞 Call Now</a>
+                        <a href="https://wa.me/919079569517?text=नमस्ते, मुझे Bayosha Footwear के बारे में जानकारी चाहिए" class="contact-btn-main" target="_blank">💬 WhatsApp</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top" id="scrollTop">↑</button>
+
+    <script>
+        // Mobile menu functionality
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        navMenu.addEventListener('click', (e) => {
+            if (e.target.tagName === 'A') {
+                navMenu.classList.remove('active');
+                hamburger.classList.remove('active');
+            }
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
+                navMenu.classList.remove('active');
+                hamburger.classList.remove('active');
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Scroll to top functionality
+        const scrollTopBtn = document.getElementById('scrollTop');
+
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollTopBtn.classList.add('visible');
+            } else {
+                scrollTopBtn.classList.remove('visible');
+            }
+        });
+
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fade-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections for animation
+        document.querySelectorAll('.section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // WhatsApp direct messaging
+        function openWhatsApp(message = '') {
+            const phoneNumber = '919079569517';
+            const defaultMessage = 'नमस्ते, मुझे Bayosha Footwear के बारे में जानकारी चाहिए';
+            const finalMessage = message || defaultMessage;
+            const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(finalMessage)}`;
+            window.open(whatsappURL, '_blank');
+        }
+
+        // Enhanced contact button interactions
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add click analytics (if needed)
+            document.querySelectorAll('.contact-btn, .contact-btn-main').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Track contact button clicks
+                    console.log('Contact button clicked:', this.textContent);
+                });
+            });
+
+            // Add hover effects for service cards
+            document.querySelectorAll('.service-card, .value-item').forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px) scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+
+            // Dynamic greeting based on time
+            const currentHour = new Date().getHours();
+            let greeting = 'नमस्ते';
+            
+            if (currentHour < 12) {
+                greeting = 'सुप्रभात';
+            } else if (currentHour < 17) {
+                greeting = 'नमस्कार';
+            } else {
+                greeting = 'शुभ संध्या';
+            }
+
+            // Update WhatsApp links with time-based greeting
+            document.querySelectorAll('a[href*="wa.me"]').forEach(link => {
+                const currentHref = link.getAttribute('href');
+                if (currentHref.includes('text=')) {
+                    const newHref = currentHref.replace('नमस्ते', greeting);
+                    link.setAttribute('href', newHref);
+                }
+            });
+        });
+
+        // Add loading animation
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease-in-out';
+            
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+
+        // Add keyboard navigation support
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                navMenu.classList.remove('active');
+                hamburger.classList.remove('active');
+            }
+        });
+
+        // Performance optimization - Lazy loading for images
+        if ('IntersectionObserver' in window) {
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src;
+                        img.classList.remove('lazy');
+                        imageObserver.unobserve(img);
+                    }
+                });
+            });
+
+            document.querySelectorAll('img[data-src]').forEach(img => {
+                imageObserver.observe(img);
+            });
+        }
+    </script>
+</body>
+</html>
